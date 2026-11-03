@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\MemberProfile;
 use App\Models\TeamStandup;
+use App\Models\TeamDocument;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
 class TeamWorkspaceController extends Controller
 {
     /**
-     * مساحة عمل الفريق ولوحة تحكم القائد
+     * مساحة عمل وإدارة الفريق ولوحة التحكم
      */
     public function index(Request $request)
     {
@@ -29,7 +30,7 @@ class TeamWorkspaceController extends Controller
             ]);
         }
 
-        // تحميل العلاقات
+        // تحميل العلاقات الشاملة
         $team->load([
             'leader.profile',
             'members.profile',
@@ -40,6 +41,7 @@ class TeamWorkspaceController extends Controller
                 $query->with('assignee')->latest();
             },
             'standups.user',
+            'documents.uploader',
         ]);
 
         $isLeader = $team->isLeader($user);
@@ -52,13 +54,15 @@ class TeamWorkspaceController extends Controller
         $tasksReview = $team->tasks->where('status', 'review')->count();
         $tasksTodo = $team->tasks->where('status', 'todo')->count();
         $pendingInvites = $team->invitations->where('status', 'pending')->count();
+        $docsCount = $team->documents->count();
 
         $categories = [
             'الذكاء الاصطناعي وتطبيقات الويب',
+            'حلول السحاب والأنظمة المؤسسية',
+            'تطبيقات الهواتف والـ FinTech',
             'إنترنت الأشياء والنظم المدمجة',
-            'الأمن السيبراني والشبكات',
-            'التقنيات الطبية والصحية',
-            'حلول الأعمال والتجارة الإلكترونية',
+            'الأمن السيبراني وحماية الشبكات',
+            'التجارة الإلكترونية والمنصات الذكية',
             'الأنظمة الجغرافية والخرائط (GIS)',
         ];
 
@@ -73,6 +77,7 @@ class TeamWorkspaceController extends Controller
             'tasksReview',
             'tasksTodo',
             'pendingInvites',
+            'docsCount',
             'categories'
         ))->with('hasTeam', true);
     }
@@ -93,10 +98,10 @@ class TeamWorkspaceController extends Controller
             'department' => ['nullable', 'string', 'max:150'],
             'github_repo' => ['nullable', 'url', 'max:255'],
         ], [
-            'name.required' => 'يرجى إدخال اسم الفريق',
-            'project_title.required' => 'يرجى إدخال عنوان فكرة مشروع التخرج',
-            'category.required' => 'يرجى اختيار تخصص ومجال المشروع',
-            'university.required' => 'يرجى تحديد الجامعة أو الكلية',
+            'name.required' => 'يرجى إدخال اسم الفريق أو المشروع',
+            'project_title.required' => 'يرجى إدخال عنوان المشروع أو المنتج',
+            'category.required' => 'يرجى اختيار مجال وتخصص المشروع',
+            'university.required' => 'يرجى تحديد المنظمة أو الشركة أو المؤسسة',
         ]);
 
         $team = Team::create([
@@ -106,7 +111,7 @@ class TeamWorkspaceController extends Controller
             'description' => $validated['description'] ?? null,
             'category' => $validated['category'],
             'university' => $validated['university'],
-            'department' => $validated['department'] ?? 'كلية الحاسوب وتكنولوجيا المعلومات',
+            'department' => $validated['department'] ?? 'قطاع هندسة وتطوير النظم',
             'github_repo' => $validated['github_repo'] ?? null,
             'invite_code' => strtoupper(Str::random(8)),
             'status' => 'in_progress',
@@ -118,20 +123,19 @@ class TeamWorkspaceController extends Controller
             'team_id' => $team->id,
             'user_id' => $user->id,
         ], [
-            'role_in_team' => 'قائد ومؤسس الفريق',
+            'role_in_team' => 'مدير ومؤسس الفريق (Team Leader)',
             'status' => 'active',
             'joined_at' => now(),
         ]);
 
-        // إنشاء ملف السيرة الذاتية إن لم يكن موجوداً
         MemberProfile::firstOrCreate(['user_id' => $user->id], [
-            'job_title' => 'قائد الفريق ومطور برمجيات',
-            'major' => 'علوم حاسوب / هندسة برمجيات',
-            'skills' => 'إدارة المشاريع, هندسة البرمجيات, مراجعة الأكواد',
+            'job_title' => 'مدير الفريق & مهندس برمجيات أول',
+            'major' => 'هندسة برمجيات ونظم ذكية',
+            'skills' => 'إدارة المشاريع, هندسة البرمجيات, مراجعة الأكواد, DevOps',
         ]);
 
         return redirect()->route('team.workspace')
-            ->with('success', 'تم تأسيس فريقك بنجاح! مرحباً بك في مركز قيادة الفريق.');
+            ->with('success', 'تم تأسيس فريقك ومشروعك بنجاح! مرحباً بك في مركز القيادة.');
     }
 
     /**
@@ -241,7 +245,75 @@ class TeamWorkspaceController extends Controller
     }
 
     /**
-     * عرض تقرير المشرف الأكاديمي الرسمي بصيغة قابلة للطباعة والتصدير كـ PDF
+     * رفع وحفظ ملف أو وثيقة في خزانة مخرجات المشروع (Vault)
+     */
+    public function storeDocument(Request $request, Team $team)
+    {
+        $user = Auth::user();
+
+        if (!$team->members()->where('user_id', $user->id)->exists()) {
+            abort(403, 'غير مصرح لك برفع مستندات في هذا الفريق');
+        }
+
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:1000'],
+            'category' => ['required', 'string', 'in:technical,architecture,pitch_deck,reports,agreements,general'],
+            'version' => ['nullable', 'string', 'max:20'],
+            'document_file' => ['required', 'file', 'max:30720'], // Max 30MB
+        ], [
+            'title.required' => 'يرجى إدخال اسم المستند أو الوثيقة',
+            'document_file.required' => 'يرجى اختيار الملف المراد رفعه',
+            'document_file.max' => 'أقصى حجم مسموح به للملف هو 30 ميجابايت',
+        ]);
+
+        $file = $request->file('document_file');
+        $fileName = $file->getClientOriginalName();
+        $fileSize = $file->getSize();
+        $fileType = strtolower($file->getClientOriginalExtension());
+        $path = $file->store('documents', 'public');
+
+        TeamDocument::create([
+            'team_id' => $team->id,
+            'uploaded_by' => $user->id,
+            'title' => $validated['title'],
+            'description' => $validated['description'] ?? null,
+            'category' => $validated['category'],
+            'version' => $validated['version'] ?? 'v1.0',
+            'file_path' => $path,
+            'file_name' => $fileName,
+            'file_size' => $fileSize,
+            'file_type' => $fileType,
+        ]);
+
+        return redirect()->route('team.workspace')
+            ->with('success', "تم رفع المستند ({$validated['title']}) في خزانة المشروع بنجاح.");
+    }
+
+    /**
+     * حذف مستند من خزانة المشروع
+     */
+    public function destroyDocument(Team $team, TeamDocument $document)
+    {
+        $user = Auth::user();
+
+        // القائد أو رافع الملف فقط
+        if (!$team->isLeader($user) && $document->uploaded_by !== $user->id) {
+            abort(403, 'غير مصرح لك بحذف هذا المستند');
+        }
+
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
+        }
+
+        $document->delete();
+
+        return redirect()->route('team.workspace')
+            ->with('success', 'تم حذف المستند بنجاح من خزانة المشروع.');
+    }
+
+    /**
+     * عرض تقرير المتابعة والإنجاز التنفيذي للمشروع بصيغة قابلة للطباعة والتصدير كـ PDF
      */
     public function report(Team $team)
     {
@@ -258,13 +330,14 @@ class TeamWorkspaceController extends Controller
                 $query->with('assignee')->latest();
             },
             'standups.user',
+            'documents.uploader',
         ]);
 
         return view('team.report', compact('team', 'user'));
     }
 
     /**
-     * تحديث السيرة الذاتية والملف الشخصي والـ CV للعضو الحالي
+     * تحديث السيرة الذاتية والملف المهني للعضو الحالي
      */
     public function updateProfile(Request $request)
     {

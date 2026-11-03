@@ -31,10 +31,10 @@ class TeamSeeder extends Seeder
             [
                 'job_title' => 'رئيس الفريق & مهندس برمجيات ونظم ذكية',
                 'phone' => '+967 770 000 111',
-                'university_id_number' => 'UNIV-2024-8841',
-                'major' => 'هندسة برمجيات وذكاء اصطناعي',
+                'university_id_number' => 'DEV-LEAD-8841',
+                'major' => 'هندسة البرمجيات والذكاء الاصطناعي (Senior Software Engineer)',
                 'gpa' => 3.92,
-                'bio' => 'قائد فريق شغوف بهندسة النظم الموزعة، تطوير تطبيقات السحاب، والذكاء الاصطناعي. أمتلك خبرة متقدمة في قيادة الفرق وتوجيه مسارات التطوير التقني والأكاديمي.',
+                'bio' => 'قائد ومطور برمجيات أول شغوف بهندسة النظم الموزعة، تطوير التطبيقات السحابية، وقيادة فرق العمل الرشيقة (Agile Scrum). خبرة عميقة في إدارة دورة حياة المنتجات من التخطيط حتى الإطلاق.',
                 'skills' => 'Laravel 12, Flutter, System Design, RESTful APIs, Git & GitHub, Docker, Agile Leadership',
                 'github_url' => 'https://github.com',
                 'linkedin_url' => 'https://linkedin.com',
@@ -43,19 +43,19 @@ class TeamSeeder extends Seeder
         );
 
         // 2. Create Team
-        $team = Team::firstOrCreate(
+        $team = Team::updateOrCreate(
             ['leader_id' => $leader->id],
             [
-                'name' => 'فريق الذكاء الاصطناعي (NeuroVision)',
-                'project_title' => 'نظام ذكي للتشخيص المبكر لأورام الرئة باستخدام الرؤية الحاسوبية والتعلم العميق',
+                'name' => 'فريق تطوير النظم والذكاء الاصطناعي (NeuroVision Squad)',
+                'project_title' => 'منظومة التشخيص المبكر الذكية للرعاية الصحية والتحليل الطبي المتقدم',
                 'category' => 'الذكاء الاصطناعي وتطبيقات الويب',
-                'university' => 'جامعة صنعاء',
-                'department' => 'كلية الحاسوب وتكنولوجيا المعلومات - قسم الذكاء الاصطناعي',
+                'university' => 'مختبرات الابتكار الرقمي والتقنيات الحديثة',
+                'department' => 'قطاع هندسة وتطوير الحلول البرمجية المؤسسية',
                 'invite_code' => 'NV-2026',
                 'status' => 'in_progress',
                 'progress_percentage' => 45,
                 'github_repo' => 'https://github.com/example/neurovision-project',
-                'description' => 'مشروع تخرج نوعي يهدف إلى بناء منصة متكاملة لتحليل صور الأشعة السينية (X-Ray) والأشعة المقطعية (CT Scan) للكشف التلقائي الدقيق عن الأورام وتقديم تقارير طبية مساعدة للأطباء والاستشاريين.',
+                'description' => 'مشروع تقني استراتيجي يهدف إلى بناء منصة متكاملة للتحليل الطبي الدقيق لصور الأشعة السينية والمقطعية باستخدام خوارزميات الرؤية الحاسوبية المتقدمة لخدمة المستشفيات والمراكز التخصصية.',
             ]
         );
 
@@ -244,6 +244,159 @@ class TeamSeeder extends Seeder
                 'created_at' => $sd['created_at'],
             ]);
         }
+
+        // 7. Seed Sample Project Deliverables & Documents (Vault)
+        $sampleDocs = [
+            [
+                'title' => 'وثيقة المتطلبات البرمجية والمواصفات الفنية (SRS & Architecture)',
+                'description' => 'المخطط الشامل لمعمارية النظام، واجهات برمجة التطبيقات، ونطاق عمل المشروع.',
+                'category' => 'technical',
+                'file_name' => 'SRS_System_Architecture_v2.pdf',
+                'file_path' => 'documents/sample_srs.pdf',
+                'file_size' => 4823449, // ~4.6 MB
+                'file_type' => 'pdf',
+                'version' => 'v2.1',
+            ],
+            [
+                'title' => 'مخططات وتصاميم تجربة المستخدم والمعمارية (UI/UX & UML Diagrams)',
+                'description' => 'مخططات Use Case, Class Diagrams, وتصاميم واجهات التطبيق.',
+                'category' => 'architecture',
+                'file_name' => 'UI_UX_Design_Prototypes.pdf',
+                'file_path' => 'documents/sample_design.pdf',
+                'file_size' => 8421000, // ~8.4 MB
+                'file_type' => 'pdf',
+                'version' => 'v1.4',
+            ],
+            [
+                'title' => 'عرض المشروع للمستثمرين وأصحاب المصلحة (Pitch Deck)',
+                'description' => 'العرض التقديمي التعريفي بالقيمة السوقية، حلول النظام، وخطط التوسع التجاري.',
+                'category' => 'pitch_deck',
+                'file_name' => 'Executive_Project_Pitch_Deck.pptx',
+                'file_path' => 'documents/sample_pitch.pptx',
+                'file_size' => 12582912, // ~12 MB
+                'file_type' => 'pptx',
+                'version' => 'v1.0',
+            ],
+            [
+                'title' => 'تقرير فحص الأمان واختبارات الجودة (Security Audit & QA Report)',
+                'description' => 'تقرير فحوصات الـ Penetration Testing والـ Unit Contracts وضمان استقرار النظام.',
+                'category' => 'reports',
+                'file_name' => 'Security_QA_Audit_Summary.pdf',
+                'file_path' => 'documents/sample_qa.pdf',
+                'file_size' => 2154300, // ~2.1 MB
+                'file_type' => 'pdf',
+                'version' => 'v1.0',
+            ],
+        ];
+
+        foreach ($sampleDocs as $sDoc) {
+            \App\Models\TeamDocument::updateOrCreate(
+                ['team_id' => $team->id, 'title' => $sDoc['title']],
+                array_merge($sDoc, [
+                    'uploaded_by' => $leader->id,
+                ])
+            );
+        }
+
+        // 8. Seed Sample Consultations & Mentorship Sessions
+        $sampleConsultations = [
+            [
+                'consultant_name' => 'د. نبيل عبد الحكيم الشرعبي',
+                'consultant_title' => 'استشاري أول نظم الذكاء الاصطناعي والحوسبة السحابية',
+                'consultant_avatar' => 'NS',
+                'topic' => 'مراجعة خوارزميات الاستدلال (Inference) وتسريع معالجة الصور الطبية',
+                'category' => 'technical',
+                'description' => 'مناقشة تحسين أداء نماذج الـ Deep Learning في استخراج الميزات من صور الأشعة المقطعية وضمان دقة تتجاوز 96%.',
+                'status' => 'completed',
+                'session_date' => now()->subDays(4)->setTime(16, 0),
+                'meeting_link' => 'https://meet.google.com/nabil-ai-session',
+                'recommendations' => "1. الاعتماد على تقنية TensorRT لتحويل أوزان النموذج وتحسين كفاءة استهلاك معالج الرسوميات GPU.\n2. فصل خدمة الـ Inference عن الواجهة الخلفية عبر Microservice مستقلة ذات Auto-scaling.\n3. تطبيق Data Augmentation موسع لتحسين تعميم النموذج على الحالات النادرة.",
+                'rating' => 5,
+            ],
+            [
+                'consultant_name' => 'م. لمياء أنور السقاف',
+                'consultant_title' => 'خبيرة الأمن السيبراني واختبار الاختراق والامتثال السحابي',
+                'consultant_avatar' => 'LS',
+                'topic' => 'فحص أمان واجهات RESTful وحماية وتشفير السجلات الطبية للمرضى',
+                'category' => 'security',
+                'description' => 'مراجعة آليات المصادقة باستخدام JWT، اختبار الثغرات الشائعة (OWASP Top 10)، والتأكد من مطابقة معايير تشفير البيانات في وضع السكون ونقل البيانات.',
+                'status' => 'confirmed',
+                'session_date' => now()->addDays(2)->setTime(18, 30),
+                'meeting_link' => 'https://meet.google.com/sec-cyber-audit',
+                'recommendations' => null,
+                'rating' => null,
+            ],
+            [
+                'consultant_name' => 'د. حسام طارق المقطري',
+                'consultant_title' => 'مستشار نمذجة الأعمال وجولات الاستثمار وعروض المستثمرين',
+                'consultant_avatar' => 'HM',
+                'topic' => 'مراجعة نموذج القيمة التجارية وخطة تسعير خدمات التحليل للمستشفيات',
+                'category' => 'business',
+                'description' => 'دراسة السوق المستهدف لقطاع الرعاية الصحية، إعداد التوقعات المالية للسنة الأولى، وهيكلة عرض القيمة للمستثمرين.',
+                'status' => 'pending',
+                'session_date' => null,
+                'meeting_link' => null,
+                'recommendations' => null,
+                'rating' => null,
+            ],
+        ];
+
+        foreach ($sampleConsultations as $sCon) {
+            \App\Models\TeamConsultation::updateOrCreate(
+                ['team_id' => $team->id, 'topic' => $sCon['topic']],
+                array_merge($sCon, [
+                    'requested_by' => $leader->id,
+                ])
+            );
+        }
+
+        // 9. Seed Sample War Room Discussions & Replies
+        $d1 = \App\Models\TeamDiscussion::updateOrCreate(
+            ['team_id' => $team->id, 'title' => '📌 تدشين مرحلة الربط والدمج المتكامل (Milestone 2 Integration Sprint)'],
+            [
+                'user_id' => $leader->id,
+                'content' => "أعضاء الفريق الرائعين، نفتتح رسمياً هذا الأسبوع سباق الربط والتكامل الشامل بين واجهة الـ Flutter ونظام الباك إند مع خادم الذكاء الاصطناعي.\nيرجى من الجميع الالتزام بمعايير الـ Clean Architecture وتوثيق أي نقاط تواصل جديدة في خزانة الوثائق والـ Pull Requests.",
+                'category' => 'announcement',
+                'is_pinned' => true,
+                'replies_count' => 2,
+            ]
+        );
+
+        \App\Models\TeamDiscussionReply::firstOrCreate(
+            ['discussion_id' => $d1->id, 'user_id' => 8], // Asim
+            ['content' => 'مستعدون تماماً، تم تجهيز كافة الـ Bloc Events وتجهيز بيئة الاختبارات على أجهزة الآيفون والأندرويد.']
+        );
+        \App\Models\TeamDiscussionReply::firstOrCreate(
+            ['discussion_id' => $d1->id, 'user_id' => 9], // Sara
+            ['content' => 'واجهات الـ REST API في الـ Backend جاهزة ومحمية بـ JWT Middleware، ونقاط التوثيق منشورة في Swagger.']
+        );
+
+        $d2 = \App\Models\TeamDiscussion::updateOrCreate(
+            ['team_id' => $team->id, 'title' => '🚨 تحسين زمن استجابة خادم الـ Inference وضغط حجم الصور'],
+            [
+                'user_id' => 10, // Khaled
+                'content' => "لاحظت أثناء اختبار الـ Load Testing أن إرسال صور أشعة عالية الدقة بصيغة DICOM غير مضغوطة يرفع استهلاك الذاكرة في السيرفر إلى 85%. ما هو الحل المقترح؟",
+                'category' => 'blocker',
+                'is_pinned' => false,
+                'replies_count' => 1,
+            ]
+        );
+
+        \App\Models\TeamDiscussionReply::firstOrCreate(
+            ['discussion_id' => $d2->id, 'user_id' => $leader->id],
+            ['content' => 'اقتراح ممتاز؛ سنعتمد تحويل الصور في جهة العميل (Client-side Preprocessing) وضغطها وفق معايير WebP بدون فقدان الجودة الطبية قبل إرسالها للباك إند، وقد تم توثيق ذلك في توصيات الدكتور نبيل.']
+        );
+
+        $d3 = \App\Models\TeamDiscussion::updateOrCreate(
+            ['team_id' => $team->id, 'title' => '📐 معايير توثيق الكود والالتزام بنمط Karpathy Guidelines'],
+            [
+                'user_id' => 9, // Sara
+                'content' => "أرجو من جميع الزملاء مراجعة كود الـ PRs والتأكد من البساطة المباشرة (Simplicity First) وتجنب أي تعقيد غير ضروري قبل الرفع لفرع main.",
+                'category' => 'architecture',
+                'is_pinned' => false,
+                'replies_count' => 0,
+            ]
+        );
     }
 }
 

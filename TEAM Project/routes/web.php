@@ -15,6 +15,8 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\TeamWorkspaceController;
 use App\Http\Controllers\TeamInvitationController;
 use App\Http\Controllers\TeamTaskController;
+use App\Http\Controllers\TeamConsultationController;
+use App\Http\Controllers\TeamDiscussionController;
 
 // 0. الواجهات العامة والصفحة التعريفية (Public Showcase & Landing Hub)
 Route::get('/', [FrontendController::class, 'index'])->name('home');
@@ -32,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/my-team/{team}', [TeamWorkspaceController::class, 'update'])->name('team.update');
     Route::get('/my-team/{team}/report', [TeamWorkspaceController::class, 'report'])->name('team.report');
     Route::post('/my-team/{team}/standups', [TeamWorkspaceController::class, 'storeStandup'])->name('team.standups.store');
+    Route::post('/my-team/{team}/documents', [TeamWorkspaceController::class, 'storeDocument'])->name('team.documents.store');
+    Route::delete('/my-team/{team}/documents/{document}', [TeamWorkspaceController::class, 'destroyDocument'])->name('team.documents.destroy');
     Route::post('/my-team/{team}/members/{member}/role', [TeamWorkspaceController::class, 'updateMemberRole'])->name('team.members.role');
     Route::delete('/my-team/{team}/members/{member}', [TeamWorkspaceController::class, 'removeMember'])->name('team.members.remove');
     Route::post('/my-team/profile', [TeamWorkspaceController::class, 'updateProfile'])->name('team.profile.update');
@@ -46,6 +50,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/my-team/{team}/tasks', [TeamTaskController::class, 'store'])->name('team.tasks.store');
     Route::patch('/my-team/{team}/tasks/{task}/status', [TeamTaskController::class, 'updateStatus'])->name('team.tasks.status');
     Route::delete('/my-team/{team}/tasks/{task}', [TeamTaskController::class, 'destroy'])->name('team.tasks.destroy');
+
+    // استشارات وخبراء وتوجيه المشروع
+    Route::get('/my-team/consultations', [TeamConsultationController::class, 'index'])->name('team.consultations');
+    Route::post('/my-team/consultations', [TeamConsultationController::class, 'store'])->name('team.consultations.store');
+    Route::put('/my-team/consultations/{consultation}', [TeamConsultationController::class, 'update'])->name('team.consultations.update');
+    Route::delete('/my-team/consultations/{consultation}', [TeamConsultationController::class, 'destroy'])->name('team.consultations.destroy');
+
+    // غرفة عمليات ونقاشات المشروع (War Room Discussions)
+    Route::get('/my-team/discussions', [TeamDiscussionController::class, 'index'])->name('team.discussions');
+    Route::post('/my-team/discussions', [TeamDiscussionController::class, 'store'])->name('team.discussions.store');
+    Route::post('/my-team/discussions/{discussion}/reply', [TeamDiscussionController::class, 'reply'])->name('team.discussions.reply');
+    Route::post('/my-team/discussions/{discussion}/pin', [TeamDiscussionController::class, 'togglePin'])->name('team.discussions.pin');
+    Route::delete('/my-team/discussions/{discussion}', [TeamDiscussionController::class, 'destroy'])->name('team.discussions.destroy');
 
     // 3. Global Search Hub (البحث الشامل والتنقل السريع في النظام)
     Route::get('/global-search', [GlobalSearchController::class, 'index'])->name('global.search');

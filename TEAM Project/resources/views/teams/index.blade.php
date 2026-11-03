@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'دليل الفرق ومشاريع التخرج - منصة TEAM Hub')
+@section('title', 'دليل الفرق والمشاريع التقنية والريادية - منصة TEAM Hub')
 
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto pb-10" x-data="{ 
@@ -24,17 +24,17 @@
             <div class="space-y-2 max-w-3xl">
                 <div class="flex items-center gap-2.5 flex-wrap">
                     <span class="px-3 py-1 rounded-full text-xs font-black bg-indigo-50 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shadow-2xs">
-                        🎓 مسار الفرق الطلابية ومشاريع التخرج
+                        🚀 مسار الفرق والمشاريع التقنية والريادية
                     </span>
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300">
                         {{ count($sampleTeams) }} فرق نشطة متاحة
                     </span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                    دليل الفرق ومشاريع التخرج الابتكارية
+                    دليل الفرق والمشاريع التقنية والريادية
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    تصفح نخبة المشاريع الطلابية الواعدة، تواصل مع قادة الفرق، انضم كعضو متخصص، أو قدم الرعاية والدعم الاستثماري المباشر.
+                    تصفح نخبة المشاريع والفرق البرمجية والريادية، تواصل مع قادة الفرق، انضم كعضو متخصص، أو قدم الرعاية والتمويل والاستثمار المؤسسي.
                 </p>
             </div>
 
@@ -44,7 +44,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    <span>تسجيل فكرة مشروع جديد</span>
+                    <span>تسجيل فريق أو مشروع جديد</span>
                 </a>
             </div>
         </div>
@@ -75,7 +75,7 @@
         <div class="relative w-full sm:w-80">
             <input type="text" 
                    x-model="searchQuery" 
-                   placeholder="بحث بالاسم، الجامعة، أو التقنية..." 
+                   placeholder="بحث باسم الفريق، المشروع، الجهة أو التقنية..." 
                    class="w-full h-10 pr-9 pl-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all">
             <svg class="w-4 h-4 absolute right-3 top-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>

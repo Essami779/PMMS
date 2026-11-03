@@ -1,17 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'مساحة عمل وإدارة الفريق - منصة TEAM Hub')
+@section('title', 'مساحة عمل وإدارة الفريق والمشروع - منصة TEAM Hub')
 
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto pb-12" x-data="{
     activeTab: 'members',
     tasksView: 'kanban', // 'kanban' or 'table'
+    docFilter: 'all',
     cvModal: false,
     selectedMember: null,
     inviteModal: false,
     taskModal: false,
     roleModal: false,
     standupModal: false,
+    docModal: false,
     memberToEdit: null,
     copyFeedback: false,
     
@@ -40,13 +42,13 @@
 
             <div class="relative z-10 max-w-3xl mx-auto text-center space-y-4">
                 <span class="px-4 py-1.5 rounded-full text-xs font-black bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 inline-block">
-                    🚀 مرحباً بك في مساحة عمل مشاريع التخرج
+                    🚀 مرحباً بك في مساحة عمل وإدارة الفرق والمشاريع
                 </span>
                 <h1 class="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
-                    ابدأ رحلتك: أسس فريقك الجديد أو انضم لفريق قائم
+                    ابدأ الآن: أسس فريق عملك الجديد أو انضم لفريق قائم
                 </h1>
                 <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-                    يمكنك قيادة مشروع تخرجك عبر إنشاء فريق جديد ودعوة زملائك، أو الانضمام لفريق زميلك مباشرة عبر رمز الانضمام السريع.
+                    يمكنك قيادة مشروعك التقني أو الريادي عبر إنشاء فريق وتوزيع المهام، أو الانضمام لفريق زميلك مباشرة عبر رمز الانضمام السريع.
                 </p>
 
                 <!-- Cards for two options -->
@@ -57,14 +59,14 @@
                             <div class="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-2xl">
                                 👑
                             </div>
-                            <h3 class="text-lg font-black text-white">تأسيس فريق جديد (كقائد)</h3>
+                            <h3 class="text-lg font-black text-white">تأسيس فريق ومشروع جديد (كقائد)</h3>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                سجل فكرة مشروع التخرج الخاص بك، أدر أعضاء فريقك، استعرض سيرهم الذاتية، وتابع مهام المشروع بالكامل.
+                                سجل مشروعك، أدر أعضاء فريقك، استعرض ملفاتهم وخبراتهم، وزّع المهام، وتابع الإنجاز بالكامل عبر لوحة كانبان.
                             </p>
                         </div>
                         <button type="button" @click="$dispatch('open-create-team-modal')" 
                                 class="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 cursor-pointer">
-                            <span>إنشاء فريقي الآن</span>
+                            <span>تأسيس فريقي الآن</span>
                             <span>←</span>
                         </button>
                     </div>
@@ -77,7 +79,7 @@
                             </div>
                             <h3 class="text-lg font-black text-white">الانضمام لفريق قائم</h3>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                إذا كان قائد الفريق قد زوّدك برمز انضمام (مثل NV-2026)، يمكنك إدخاله فوراً للانضمام لأعضاء الفريق.
+                                إذا كان مدير أو قائد الفريق قد زوّدك برمز انضمام (مثل NV-2026)، يمكنك إدخاله فوراً للالتحاق بالفريق.
                             </p>
                         </div>
                         <form action="{{ route('team.join.code') }}" method="POST" class="mt-6 space-y-2">
@@ -105,11 +107,11 @@
                     <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
                         <div class="flex items-center gap-3">
                             <span class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg font-bold">
-                                🎓
+                                💼
                             </span>
                             <div>
-                                <h3 class="text-base font-black text-slate-900 dark:text-white">تأسيس وتسجيل فريق مشروع جديد</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">ستكون أنت القائد والمشرف على أعضاء هذا الفريق</p>
+                                <h3 class="text-base font-black text-slate-900 dark:text-white">تأسيس وتسجيل فريق ومشروع جديد</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">ستكون أنت القائد والمدير المشرف على أعضاء هذا الفريق</p>
                             </div>
                         </div>
                         <button @click="showModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">✕</button>
@@ -119,51 +121,52 @@
                         @csrf
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم الفريق *</label>
-                                <input type="text" name="name" placeholder="مثال: فريق الذكاء الاصطناعي (NeuroVision)" required
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم الفريق أو Squad *</label>
+                                <input type="text" name="name" placeholder="مثال: فريق تطوير النظم الذكية (NeuroVision)" required
                                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">مجال وتخصص المشروع *</label>
                                 <select name="category" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                                     <option value="الذكاء الاصطناعي وتطبيقات الويب">الذكاء الاصطناعي وتطبيقات الويب</option>
+                                    <option value="حلول السحاب والأنظمة المؤسسية">حلول السحاب والأنظمة المؤسسية</option>
+                                    <option value="تطبيقات الهواتف والـ FinTech">تطبيقات الهواتف والـ FinTech</option>
                                     <option value="إنترنت الأشياء والنظم المدمجة">إنترنت الأشياء والنظم المدمجة</option>
-                                    <option value="الأمن السيبراني والشبكات">الأمن السيبراني والشبكات</option>
-                                    <option value="التقنيات الطبية والصحية">التقنيات الطبية والصحية</option>
-                                    <option value="حلول الأعمال والتجارة الإلكترونية">حلول الأعمال والتجارة الإلكترونية</option>
+                                    <option value="الأمن السيبراني وحماية الشبكات">الأمن السيبراني وحماية الشبكات</option>
+                                    <option value="التجارة الإلكترونية والمنصات الذكية">التجارة الإلكترونية والمنصات الذكية</option>
                                     <option value="الأنظمة الجغرافية والخرائط (GIS)">الأنظمة الجغرافية والخرائط (GIS)</option>
                                 </select>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان فكرة مشروع التخرج *</label>
-                            <input type="text" name="project_title" placeholder="مثال: نظام ذكي للتشخيص المبكر لأورام الرئة باستخدام الرؤية الحاسوبية" required
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان المشروع أو المنتج *</label>
+                            <input type="text" name="project_title" placeholder="مثال: منصة التشخيص الطبي المتقدم وتحليل الصور الإشعاعية" required
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الجامعة أو الأكاديمية *</label>
-                                <input type="text" name="university" value="جامعة صنعاء" required
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">المنظمة / الشركة أو المؤسسة التابع لها *</label>
+                                <input type="text" name="university" placeholder="اسم الشركة، المؤسسة، أو الجامعة" required
                                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الكلية أو القسم</label>
-                                <input type="text" name="department" value="كلية الحاسوب وتكنولوجيا المعلومات"
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">القسم أو القطاع</label>
+                                <input type="text" name="department" placeholder="مثال: قطاع هندسة وتطوير النظم"
                                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">رابط مستودع الكود (GitHub / GitLab)</label>
-                            <input type="url" name="github_repo" placeholder="https://github.com/username/project"
+                            <input type="url" name="github_repo" placeholder="https://github.com/organization/project"
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">نبذة ووصف موجز عن المشروع</label>
-                            <textarea name="description" rows="3" placeholder="اشرح باختصار مشكلة المشروع والحل التقني المقترح وأهدافه..."
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">نبذة ووصف موجز عن المشروع والحل التقني</label>
+                            <textarea name="description" rows="3" placeholder="اشرح باختصار مشكلة المشروع، القيمة المقدمة، والحل التقني المقترح..."
                                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500"></textarea>
                         </div>
 
@@ -187,6 +190,28 @@
              ACTIVE TEAM WORKSPACE: مساحة العمل ولوحة قيادة الفريق
              ============================================================ -->
 
+        <!-- Top Team Navigation Bar -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-2.5 flex items-center justify-between flex-wrap gap-2 shadow-2xs">
+            <div class="flex items-center gap-1 sm:gap-2 flex-wrap">
+                <a href="{{ route('team.workspace') }}" class="px-3.5 py-2 rounded-xl text-xs font-black bg-indigo-600 text-white shadow-sm flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span>مساحة العمل ومتابعة الفريق</span>
+                </a>
+                <a href="{{ route('team.discussions') }}" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span>غرفة العمليات والنقاشات</span>
+                </a>
+                <a href="{{ route('team.consultations') }}" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    <span>استشارات وخبراء المشروع</span>
+                </a>
+            </div>
+            <a href="{{ route('team.report', $team) }}" target="_blank" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>طباعة التقرير الشامل</span>
+            </a>
+        </div>
+
         <!-- 1. Executive Luxury Header Banner -->
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-indigo-900/40 via-purple-900/20 to-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-sm">
             <div class="absolute -left-16 -top-16 w-72 h-72 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -203,7 +228,7 @@
                         @if($isLeader)
                             <span class="px-3 py-1 rounded-full text-xs font-black bg-amber-500/15 text-amber-500 border border-amber-500/30 flex items-center gap-1.5">
                                 <span>👑</span>
-                                <span>أنت رئيس وقائد الفريق</span>
+                                <span>أنت مدير ورئيس الفريق</span>
                             </span>
                         @else
                             <span class="px-3 py-1 rounded-full text-xs font-black bg-blue-500/15 text-blue-400 border border-blue-500/30 flex items-center gap-1.5">
@@ -213,7 +238,7 @@
                         @endif
 
                         <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                            🏛️ {{ $team->university }}
+                            🏢 {{ $team->university }}
                         </span>
                     </div>
 
@@ -222,14 +247,14 @@
                             {{ $team->name }}
                         </h1>
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 font-semibold leading-relaxed">
-                            💡 فكرة المشروع: {{ $team->project_title }}
+                            💡 المشروع: {{ $team->project_title }}
                         </p>
                     </div>
 
                     <!-- Progress Bar & Quick Metrics -->
                     <div class="pt-2 max-w-xl space-y-1.5">
                         <div class="flex items-center justify-between text-xs font-bold">
-                            <span class="text-slate-500 dark:text-slate-400">نسبة التقدم وإنجاز متطلبات المشروع:</span>
+                            <span class="text-slate-500 dark:text-slate-400">نسبة التقدم وإنجاز دورة حياة المشروع:</span>
                             <span class="text-indigo-600 dark:text-indigo-400 font-black font-num">{{ $team->progress_percentage }}%</span>
                         </div>
                         <div class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
@@ -260,13 +285,13 @@
 
                     <!-- Action buttons -->
                     <div class="flex items-center flex-wrap gap-2">
-                        <!-- Official Supervisor Report Button -->
+                        <!-- Official Executive Report Button -->
                         <a href="{{ route('team.report', $team->id) }}" target="_blank"
                            class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/25 transition flex items-center gap-1.5 cursor-pointer">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
-                            <span>تقرير المشرف (طباعة / PDF)</span>
+                            <span>التقرير التنفيذي (طباعة / PDF)</span>
                         </a>
 
                         @if($isLeader)
@@ -287,6 +312,11 @@
                             </button>
                         @endif
 
+                        <button type="button" @click="docModal = true"
+                                class="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/30 transition flex items-center gap-1.5 cursor-pointer">
+                            <span>📁 رفع وثيقة</span>
+                        </button>
+
                         <button type="button" @click="standupModal = true"
                                 class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md shadow-purple-600/30 transition flex items-center gap-1.5 cursor-pointer">
                             <span>💬 تحديث يومي</span>
@@ -305,37 +335,37 @@
                 </div>
             </div>
 
-            <!-- Graduation Project Milestones Stepper -->
+            <!-- Professional Project Lifecycle Stepper (SDLC) -->
             <div class="mt-6 pt-5 border-t border-slate-200/40 dark:border-slate-800/80">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="text-[11px] font-bold text-slate-400">المسار الأكاديمي لمشروع التخرج:</span>
-                    <span class="text-[11px] font-bold text-indigo-400">مرحلة التطوير والربط</span>
+                    <span class="text-[11px] font-bold text-slate-400">مراحل دورة حياة المشروع (Project Delivery Lifecycle):</span>
+                    <span class="text-[11px] font-bold text-indigo-400">المرحلة الحالية: التطوير البرمجي والربط</span>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs">
                     <div class="p-2.5 rounded-xl border {{ $team->progress_percentage >= 20 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold' : 'bg-slate-800/40 border-slate-700 text-slate-500' }}">
-                        <span class="block text-sm">📄</span>
-                        <span class="text-[10.5px] block mt-0.5">1. وثيقة SRS</span>
+                        <span class="block text-sm">📋</span>
+                        <span class="text-[10.5px] block mt-0.5">1. النطاق والمتطلبات</span>
                         <span class="text-[9px] font-num opacity-75">100% مكتمل</span>
                     </div>
                     <div class="p-2.5 rounded-xl border {{ $team->progress_percentage >= 40 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold' : 'bg-slate-800/40 border-slate-700 text-slate-500' }}">
-                        <span class="block text-sm">🎨</span>
-                        <span class="text-[10.5px] block mt-0.5">2. التصميم والمخططات</span>
+                        <span class="block text-sm">🏗️</span>
+                        <span class="text-[10.5px] block mt-0.5">2. التصميم والمعمارية</span>
                         <span class="text-[9px] font-num opacity-75">معتمد ✓</span>
                     </div>
                     <div class="p-2.5 rounded-xl border {{ $team->progress_percentage >= 45 ? 'bg-indigo-500/20 border-indigo-500/40 text-indigo-400 font-black ring-1 ring-indigo-500/30' : 'bg-slate-800/40 border-slate-700 text-slate-500' }}">
                         <span class="block text-sm">💻</span>
-                        <span class="text-[10.5px] block mt-0.5">3. البرمجة والنماذج</span>
+                        <span class="text-[10.5px] block mt-0.5">3. البرمجة والتطوير</span>
                         <span class="text-[9px] font-num text-amber-400">جاري العمل ⚡</span>
                     </div>
                     <div class="p-2.5 rounded-xl border {{ $team->progress_percentage >= 80 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 font-bold' : 'bg-slate-800/40 border-slate-700 text-slate-500' }}">
                         <span class="block text-sm">🛡️</span>
-                        <span class="text-[10.5px] block mt-0.5">4. الاختبارات والـ QA</span>
-                        <span class="text-[9px] font-num opacity-75">قادمة</span>
+                        <span class="text-[10.5px] block mt-0.5">4. فحص الجودة والأمان</span>
+                        <span class="text-[9px] font-num opacity-75">المرحلة القادمة</span>
                     </div>
                     <div class="p-2.5 rounded-xl border {{ $team->progress_percentage >= 100 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 font-bold' : 'bg-slate-800/40 border-slate-700 text-slate-500' }}">
-                        <span class="block text-sm">🏆</span>
-                        <span class="text-[10.5px] block mt-0.5">5. المناقشة النهائية</span>
-                        <span class="text-[9px] font-num opacity-75">المرحلة الختامية</span>
+                        <span class="block text-sm">🚀</span>
+                        <span class="text-[10.5px] block mt-0.5">5. الإطلاق والتسليم</span>
+                        <span class="text-[9px] font-num opacity-75">التسليم النهائي</span>
                     </div>
                 </div>
             </div>
@@ -345,7 +375,7 @@
                 <button type="button" @click="activeTab = 'members'"
                         :class="activeTab === 'members' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-400'"
                         class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap">
-                    <span>👥 أعضاء الفريق والسير الذاتية</span>
+                    <span>👥 أعضاء الفريق والخبرات</span>
                     <span class="px-1.5 py-0.5 rounded-full text-[10px] bg-black/20 text-white font-num">{{ $totalMembers }}</span>
                 </button>
 
@@ -354,6 +384,13 @@
                         class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap">
                     <span>📋 لوحة المهام وكانبان</span>
                     <span class="px-1.5 py-0.5 rounded-full text-[10px] bg-black/20 text-white font-num">{{ $tasksTotal }}</span>
+                </button>
+
+                <button type="button" @click="activeTab = 'vault'"
+                        :class="activeTab === 'vault' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-400'"
+                        class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap">
+                    <span>📁 خزانة وثائق المشروع (Vault)</span>
+                    <span class="px-1.5 py-0.5 rounded-full text-[10px] bg-teal-500 text-white font-black font-num">{{ $docsCount }}</span>
                 </button>
 
                 <button type="button" @click="activeTab = 'standups'"
@@ -375,14 +412,14 @@
                 <button type="button" @click="activeTab = 'my_cv'"
                         :class="activeTab === 'my_cv' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-400'"
                         class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap">
-                    <span>📄 سيرتي الذاتية وملفي المهني</span>
+                    <span>📄 ملفي المهني والسيرة الذاتية</span>
                 </button>
 
                 @if($isLeader)
                     <button type="button" @click="activeTab = 'project'"
                             :class="activeTab === 'project' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-400'"
                             class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer whitespace-nowrap">
-                        <span>⚙️ إعدادات المشروع والتفاصيل</span>
+                        <span>⚙️ إعدادات المشروع</span>
                     </button>
                 @endif
             </div>
@@ -407,10 +444,10 @@
             </div>
 
             <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-2xs">
-                <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block">مهام قيد التنفيذ والمراجعة</span>
+                <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block">مخرجات المشروع المعتمدة</span>
                 <div class="mt-1 flex items-baseline justify-between">
-                    <span class="text-2xl font-black text-amber-500 font-num">{{ $tasksInProgress + $tasksReview }}</span>
-                    <span class="text-xs text-amber-500 font-bold">نشطة حالياً</span>
+                    <span class="text-2xl font-black text-teal-600 dark:text-teal-400 font-num">{{ $docsCount }}</span>
+                    <span class="text-xs text-teal-500 font-bold">ملف بالخزانة</span>
                 </div>
             </div>
 
@@ -424,13 +461,13 @@
         </div>
 
         <!-- ============================================================
-             TAB 1: MEMBERS ROSTER & INTERACTIVE CV VIEWER
+             TAB 1: MEMBERS ROSTER & INTERACTIVE PROFILE VIEWER
              ============================================================ -->
         <div x-show="activeTab === 'members'" class="space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs">
                 <div>
-                    <h3 class="text-sm font-black text-slate-900 dark:text-white">قائمة أعضاء الفريق والسير الذاتية</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">انقر على أي عضو لاستعراض الـ CV المباشر، مهاراته، روابط أعماله، ومراسلته فوراً.</p>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white">قائمة أعضاء الفريق وملفات الخبرات</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">انقر على أي عضو لاستعراض سيرته الذاتية، مهاراته، روابط أعماله، ومراسلته فوراً.</p>
                 </div>
 
                 @if($isLeader)
@@ -439,7 +476,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
-                        <span>إضافة / دعوة زميل</span>
+                        <span>إضافة / دعوة عضو</span>
                     </button>
                 @endif
             </div>
@@ -459,10 +496,10 @@
                             'role_in_team' => $member->pivot->role_in_team ?? 'عضو فريق',
                             'job_title' => $profile?->job_title ?? 'مهندس برمجيات',
                             'phone' => $profile?->phone ?? 'غير محدد',
-                            'major' => $profile?->major ?? 'تقنية معلومات / هندسة برمجيات',
-                            'university_id' => $profile?->university_id_number ?? 'غير مسجل',
-                            'gpa' => $profile?->gpa ?? '3.80',
-                            'bio' => $profile?->bio ?? 'عضو متميز في الفريق، يعمل على إنجاز متطلبات مشروع التخرج بأعلى درجات الكفاءة.',
+                            'major' => $profile?->major ?? 'هندسة برمجيات وتطوير نظم',
+                            'university_id' => $profile?->university_id_number ?? 'MEM-' . $member->id . '00',
+                            'gpa' => 'محترف متقدم (Senior)',
+                            'bio' => $profile?->bio ?? 'عضو متميز في الفريق، يساهم في إنجاز مخرجات المشروع البرمجية والريادية بأعلى معايير الجودة.',
                             'skills' => $skills,
                             'github_url' => $profile?->github_url ?? 'https://github.com',
                             'linkedin_url' => $profile?->linkedin_url ?? 'https://linkedin.com',
@@ -526,10 +563,10 @@
 
                             <!-- Member Job title & bio preview -->
                             <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-xs space-y-1">
-                                <div class="text-[10px] text-slate-400 font-bold">المسمى المهني والتخصص:</div>
+                                <div class="text-[10px] text-slate-400 font-bold">المسمى المهني والخبرة:</div>
                                 <div class="font-bold text-slate-800 dark:text-slate-200">{{ $profile?->job_title ?? 'مهندس برمجيات' }}</div>
                                 <div class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2">
-                                    {{ $profile?->bio ?? 'متخصص في مجاله ويساهم في تطوير مخرجات المشروع الأكاديمية والعملية.' }}
+                                    {{ $profile?->bio ?? 'متخصص في مجاله ويساهم في تطوير مخرجات المشروع بأعلى معايير الكفاءة.' }}
                                 </div>
                             </div>
 
@@ -553,14 +590,14 @@
                             </div>
                         </div>
 
-                        <!-- Card Action: Open CV Viewer Modal -->
+                        <!-- Card Action: Open Profile Viewer Modal -->
                         <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
                             <span class="text-[10px] text-slate-400">انضم: {{ $member->pivot->joined_at ? \Carbon\Carbon::parse($member->pivot->joined_at)->diffForHumans() : 'حديثاً' }}</span>
                             
                             <button type="button" 
                                     @click="openCv({{ $memberDataJson }})"
                                     class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/60 dark:to-purple-950/60 text-indigo-700 dark:text-indigo-300 hover:from-indigo-600 hover:to-indigo-700 hover:text-white dark:hover:text-white font-bold text-xs border border-indigo-200/60 dark:border-indigo-800/60 shadow-2xs transition-all duration-200 flex items-center gap-1.5 cursor-pointer">
-                                <span>استعراض الـ CV والملف الكامل</span>
+                                <span>استعراض الملف والـ CV</span>
                                 <span>📄</span>
                             </button>
                         </div>
@@ -581,7 +618,6 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <!-- Toggle View Button (Kanban vs Table) -->
                     <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-xl flex items-center gap-1 border border-slate-200 dark:border-slate-700">
                         <button type="button" @click="tasksView = 'kanban'"
                                 :class="tasksView === 'kanban' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-xs font-black' : 'text-slate-500 hover:text-slate-700'"
@@ -797,14 +833,111 @@
         </div>
 
         <!-- ============================================================
-             TAB 3: STANDUPS & DAILY FEED (الوقفات والتحديثات اليومية)
+             TAB 3: PROJECT VAULT (خزانة وثائق ومخرجات المشروع)
+             ============================================================ -->
+        <div x-show="activeTab === 'vault'" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs">
+                <div>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white">خزانة مخرجات ووثائق المشروع (Project Deliverables Vault)</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">مستندات المعمارية، المواصفات الفنية، عروض المستثمرين، وتقارير الفحص وضمان الجودة.</p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button type="button" @click="docModal = true"
+                            class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/30 transition flex items-center gap-1.5 cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <span>رفع وثيقة جديدة</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Documents Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse($team->documents as $doc)
+                    <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-teal-500/40 transition-all duration-300 group">
+                        <div class="space-y-3.5">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950/80 border border-teal-200 dark:border-teal-800 text-teal-600 dark:text-teal-400 flex items-center justify-center font-black text-xl">
+                                    @if(in_array($doc->file_type, ['pdf']))
+                                        📄
+                                    @elseif(in_array($doc->file_type, ['pptx', 'ppt']))
+                                        📊
+                                    @elseif(in_array($doc->file_type, ['docx', 'doc']))
+                                        📝
+                                    @elseif(in_array($doc->file_type, ['zip', 'rar']))
+                                        📦
+                                    @else
+                                        📁
+                                    @endif
+                                </div>
+
+                                <div class="flex items-center gap-1.5">
+                                    <span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 font-num">
+                                        {{ $doc->version }}
+                                    </span>
+                                    <span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 font-num">
+                                        {{ $doc->formatted_size }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-black text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition leading-snug">
+                                    {{ $doc->title }}
+                                </h4>
+                                @if($doc->description)
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                                        {{ $doc->description }}
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-[11px] flex items-center justify-between text-slate-500">
+                                <span>رفع بواسطة: <strong class="text-slate-800 dark:text-slate-200">{{ $doc->uploader->name }}</strong></span>
+                                <span class="font-num text-[10px]">{{ $doc->created_at->format('Y-m-d') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+                            <a href="{{ $doc->download_url }}" target="_blank"
+                               class="px-4 py-2 rounded-xl bg-teal-50 dark:bg-teal-950/60 hover:bg-teal-600 hover:text-white text-teal-700 dark:text-teal-300 font-bold text-xs transition border border-teal-200 dark:border-teal-800 flex items-center gap-1.5 cursor-pointer">
+                                <span>تحميل / معاينة</span>
+                                <span>📥</span>
+                            </a>
+
+                            @if($isLeader || $doc->uploaded_by === $user->id)
+                                <form action="{{ route('team.documents.destroy', ['team' => $team->id, 'document' => $doc->id]) }}" method="POST"
+                                      onsubmit="return confirm('هل أنت متأكد من حذف هذا الملف من الخزانة؟');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition" title="حذف الملف">
+                                        🗑️
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-full p-12 text-center text-slate-400 text-xs rounded-3xl bg-white dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-800 space-y-2">
+                        <div class="text-3xl">📁</div>
+                        <p class="font-bold">لا توجد وثائق أو مخرجات مرفوعة في الخزانة حتى الآن.</p>
+                        <p class="text-[11px]">يمكنك رفع وثائق المتطلبات، المخططات، العروض التقديمية، والتقارير الفنية المعتمدة للمشروع.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- ============================================================
+             TAB 4: STANDUPS & DAILY FEED (الوقفات والتحديثات اليومية)
              ============================================================ -->
         <div x-show="activeTab === 'standups'" class="space-y-6">
             <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 shadow-xs space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
                     <div>
                         <h3 class="text-sm font-black text-slate-900 dark:text-white">سجل الوقفات اليومية وملاحظات الفريق (Daily Standup)</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">شارك ما أنجزته اليوم وما تعمل عليه لإبقاء رئيس الفريق والزملاء على اطلاع دائم.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">شارك ما أنجزته اليوم وما تعمل عليه لإبقاء مدير الفريق والزملاء على اطلاع دائم.</p>
                     </div>
                     <button type="button" @click="standupModal = true"
                             class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md shadow-purple-600/30 transition flex items-center gap-1.5 cursor-pointer">
@@ -822,7 +955,7 @@
                                     <div class="flex items-center gap-2">
                                         <span class="text-xs font-black text-slate-900 dark:text-white">{{ $sd->user->name }}</span>
                                         @if($team->isLeader($sd->user))
-                                            <span class="text-[9.5px] px-2 py-0.2 rounded-full font-bold bg-amber-400 text-slate-950">👑 رئيس الفريق</span>
+                                            <span class="text-[9.5px] px-2 py-0.2 rounded-full font-bold bg-amber-400 text-slate-950">👑 مدير الفريق</span>
                                         @endif
                                         @if($sd->type === 'milestone')
                                             <span class="text-[9.5px] px-2 py-0.2 rounded-full font-bold bg-emerald-500/20 text-emerald-400">🏆 محطة هامة</span>
@@ -845,7 +978,7 @@
         </div>
 
         <!-- ============================================================
-             TAB 4: INVITATIONS & QUICK JOIN CODE (إدارة الدعوات)
+             TAB 5: INVITATIONS & QUICK JOIN CODE (إدارة الدعوات)
              ============================================================ -->
         <div x-show="activeTab === 'invitations'" class="space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -854,9 +987,9 @@
                     <span class="px-3 py-1 rounded-full text-xs font-black bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 inline-block">
                         🔑 رمز الانضمام السريع
                     </span>
-                    <h3 class="text-lg font-black">شارك الرمز مع زملائك</h3>
+                    <h3 class="text-lg font-black">شارك الرمز مع فريقك</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        يستطيع أي طالب أو زميل كتابة هذا الرمز مباشرة في حسابه للانضمام لفريقك بضغطة زر واحدة دون الحاجة لتأكيد البريد.
+                        يستطيع أي عضو أو زميل كتابة هذا الرمز مباشرة في حسابه للالتحاق بفريقك بضغطة زر واحدة.
                     </p>
 
                     <div class="p-4 rounded-2xl bg-black/40 border border-white/10 text-center space-y-2">
@@ -883,8 +1016,8 @@
                             @csrf
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">البريد الإلكتروني للزميل *</label>
-                                    <input type="email" name="email" placeholder="student@example.com" required
+                                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">البريد الإلكتروني للعضو *</label>
+                                    <input type="email" name="email" placeholder="teammate@company.com" required
                                            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                                 </div>
                                 <div>
@@ -893,10 +1026,11 @@
                                         <option value="مطور واجهات أمامية (Front-End)">مطور واجهات أمامية (Front-End)</option>
                                         <option value="مطور خلفية وسيرفرات (Back-End)">مطور خلفية وسيرفرات (Back-End)</option>
                                         <option value="مهندس ذكاء اصطناعي وتعلم آلة (AI & ML)">مهندس ذكاء اصطناعي وتعلم آلة (AI & ML)</option>
-                                        <option value="مطور تطبيقات هواتف (Flutter)">مطور تطبيقات هواتف (Flutter)</option>
+                                        <option value="مطور تطبيقات هواتف (Flutter / React Native)">مطور تطبيقات هواتف (Flutter / React Native)</option>
                                         <option value="مصمم واجهات وتجربة مستخدم (UI/UX)">مصمم واجهات وتجربة مستخدم (UI/UX)</option>
-                                        <option value="مهندس جودة واختبارات (QA Tester)">مهندس جودة واختبارات (QA Tester)</option>
-                                        <option value="مسؤول التوثيق والتقرير الأكاديمي (Documentation)">مسؤول التوثيق والتقرير الأكاديمي (Documentation)</option>
+                                        <option value="مهندس جودة واختبارات (QA & Automation)">مهندس جودة واختبارات (QA & Automation)</option>
+                                        <option value="مهندس بنية تحتية وأمن سحابي (DevOps & SecOps)">مهندس بنية تحتية وأمن سحابي (DevOps & SecOps)</option>
+                                        <option value="مدير منتج وتوثيق فني (Product Manager)">مدير منتج وتوثيق فني (Product Manager)</option>
                                     </select>
                                 </div>
                             </div>
@@ -987,17 +1121,17 @@
         </div>
 
         <!-- ============================================================
-             TAB 5: MY PROFILE & CV (سيرتي الذاتية وملفي المهني)
+             TAB 6: MY PROFILE & CV (سيرتي الذاتية وملفي المهني)
              ============================================================ -->
         <div x-show="activeTab === 'my_cv'" class="space-y-6">
             @php
-                $myProfile = $user->profile;
+                $myProfile = auth()->user()?->profile ?? ($user?->profile ?? null);
             @endphp
             <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6">
                 <div class="border-b border-slate-200 dark:border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                        <h3 class="text-base font-black text-slate-900 dark:text-white">ملفي المهني وسيرتي الذاتية (CV Hub)</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">تظهر هذه البيانات لزملائك في الفريق وفي تقرير المشرف الأكاديمي ودليل المشاريع العام.</p>
+                        <h3 class="text-base font-black text-slate-900 dark:text-white">ملفي المهني وسيرتي الذاتية (Professional Profile & CV)</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">تظهر هذه البيانات لزملائك في الفريق وفي التقرير التنفيذي للمشروع ودليل المنصة العام.</p>
                     </div>
 
                     @if($myProfile?->cv_url)
@@ -1014,12 +1148,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">المسمى المهني والوظيفي</label>
-                            <input type="text" name="job_title" value="{{ old('job_title', $myProfile?->job_title) }}" placeholder="مثال: مهندس برمجيات & Full-Stack"
+                            <input type="text" name="job_title" value="{{ old('job_title', $myProfile?->job_title) }}" placeholder="مثال: مهندس برمجيات أول & Full-Stack"
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">التخصص والكلية</label>
-                            <input type="text" name="major" value="{{ old('major', $myProfile?->major) }}" placeholder="مثال: علوم حاسوب / ذكاء اصطناعي"
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">المجال / التخصص الدقيق</label>
+                            <input type="text" name="major" value="{{ old('major', $myProfile?->major) }}" placeholder="مثال: هندسة البرمجيات والذكاء الاصطناعي"
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
                     </div>
@@ -1031,8 +1165,8 @@
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الرقم الجامعي (ID)</label>
-                            <input type="text" name="university_id_number" value="{{ old('university_id_number', $myProfile?->university_id_number) }}" placeholder="UNIV-..."
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">كود الموظف / المعرّف (ID)</label>
+                            <input type="text" name="university_id_number" value="{{ old('university_id_number', $myProfile?->university_id_number) }}" placeholder="DEV-..."
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
                         <div>
@@ -1043,8 +1177,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">المهارات التقنية (مفصولة بفواصل)</label>
-                        <input type="text" name="skills" value="{{ old('skills', $myProfile?->skills) }}" placeholder="مثال: Laravel, Vue.js, Flutter, Docker, Python, Git"
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">المهارات التقنية والأدوات (مفصولة بفواصل)</label>
+                        <input type="text" name="skills" value="{{ old('skills', $myProfile?->skills) }}" placeholder="مثال: Laravel, Vue.js, Flutter, Docker, Python, Git, Kubernetes"
                                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                     </div>
 
@@ -1067,8 +1201,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">نبذة شخصية وملخص الخبرات</label>
-                        <textarea name="bio" rows="4" placeholder="اكتب نبذة موجزة عن خبراتك الأكاديمية والتقنية وإنجازاتك في المشاريع..."
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">نبذة مهنية وملخص الخبرات</label>
+                        <textarea name="bio" rows="4" placeholder="اكتب نبذة موجزة عن خبراتك المهنية والتقنية وإنجازاتك في المشاريع..."
                                   class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">{{ old('bio', $myProfile?->bio) }}</textarea>
                     </div>
 
@@ -1083,14 +1217,14 @@
         </div>
 
         <!-- ============================================================
-             TAB 6: PROJECT SETTINGS (خاص بالقائد)
+             TAB 7: PROJECT SETTINGS (خاص بمدير الفريق)
              ============================================================ -->
         @if($isLeader)
             <div x-show="activeTab === 'project'" class="space-y-6">
                 <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6">
                     <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-                        <h3 class="text-base font-black text-slate-900 dark:text-white">إعدادات وتفاصيل مشروع التخرج</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">تعديل بيانات المشروع ونسبة الإنجاز المعروضة في المنصة.</p>
+                        <h3 class="text-base font-black text-slate-900 dark:text-white">إعدادات وتفاصيل المشروع</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">تعديل بيانات المشروع ونسبة الإنجاز ومستودع الكود.</p>
                     </div>
 
                     <form action="{{ route('team.update', $team->id) }}" method="POST" class="space-y-4">
@@ -1098,7 +1232,7 @@
                         @method('PUT')
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم الفريق *</label>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم الفريق أو Squad *</label>
                                 <input type="text" name="name" value="{{ old('name', $team->name) }}" required
                                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                             </div>
@@ -1113,19 +1247,19 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان فكرة مشروع التخرج *</label>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان المشروع أو المنتج *</label>
                             <input type="text" name="project_title" value="{{ old('project_title', $team->project_title) }}" required
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الجامعة أو الأكاديمية *</label>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">المنظمة / الشركة أو المؤسسة التابع لها *</label>
                                 <input type="text" name="university" value="{{ old('university', $team->university) }}" required
                                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الكلية أو القسم</label>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">القسم أو القطاع</label>
                                 <input type="text" name="department" value="{{ old('department', $team->department) }}"
                                        class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                             </div>
@@ -1133,12 +1267,12 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">حالة المشروع في المنصة</label>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">مرحلة المشروع الحالية</label>
                                 <select name="status" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
-                                    <option value="ideation" {{ $team->status === 'ideation' ? 'selected' : '' }}>💡 مرحلة بلورة الفكرة</option>
-                                    <option value="in_progress" {{ $team->status === 'in_progress' ? 'selected' : '' }}>⚡ قيد التطوير والبرمجة</option>
-                                    <option value="under_review" {{ $team->status === 'under_review' ? 'selected' : '' }}>🔍 قيد المراجعة والمناقشة</option>
-                                    <option value="completed" {{ $team->status === 'completed' ? 'selected' : '' }}>✓ مكتمل وجاهز للعرض</option>
+                                    <option value="ideation" {{ $team->status === 'ideation' ? 'selected' : '' }}>💡 مرحلة التخطيط وتحديد النطاق</option>
+                                    <option value="in_progress" {{ $team->status === 'in_progress' ? 'selected' : '' }}>⚡ مرحلة التطوير والبرمجة</option>
+                                    <option value="under_review" {{ $team->status === 'under_review' ? 'selected' : '' }}>🔍 مرحلة المراجعة وفحص الجودة</option>
+                                    <option value="completed" {{ $team->status === 'completed' ? 'selected' : '' }}>✓ مكتمل وجاهز للإطلاق والتسليم</option>
                                 </select>
                             </div>
                             <div>
@@ -1154,7 +1288,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الوصف العام للمشروع</label>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الوصف العام ونطاق عمل المشروع</label>
                             <textarea name="description" rows="3" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">{{ old('description', $team->description) }}</textarea>
                         </div>
 
@@ -1173,7 +1307,7 @@
 
 
     <!-- ============================================================
-         MODAL 1: INTERACTIVE MEMBER CV & PORTFOLIO DRAWER
+         MODAL 1: INTERACTIVE MEMBER PROFILE & CV DRAWER
          ============================================================ -->
     <div x-show="cvModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
         <div class="flex items-center justify-center min-h-screen px-4 py-8 bg-black/75 backdrop-blur-md">
@@ -1193,7 +1327,7 @@
                             <div class="flex items-center gap-2">
                                 <h3 class="text-base font-black text-slate-900 dark:text-white" x-text="selectedMember?.name"></h3>
                                 <template x-if="selectedMember?.is_leader">
-                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950">👑 رئيس الفريق</span>
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950">👑 مدير الفريق</span>
                                 </template>
                             </div>
                             <p class="text-xs text-indigo-600 dark:text-indigo-400 font-bold" x-text="selectedMember?.role_in_team"></p>
@@ -1220,15 +1354,15 @@
                 <!-- Academic & Contact Badges -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center">
-                        <span class="text-[10px] text-slate-400 font-bold block">المسمى الوظيفي</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">المسمى المهني</span>
                         <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block mt-0.5" x-text="selectedMember?.job_title"></span>
                     </div>
                     <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center">
-                        <span class="text-[10px] text-slate-400 font-bold block">المعدل التراكمي</span>
-                        <span class="text-xs font-black text-emerald-500 font-num block mt-0.5" x-text="selectedMember?.gpa + ' / 4.0'"></span>
+                        <span class="text-[10px] text-slate-400 font-bold block">المستوى والخبرة</span>
+                        <span class="text-xs font-black text-emerald-500 font-num block mt-0.5" x-text="selectedMember?.gpa"></span>
                     </div>
                     <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center">
-                        <span class="text-[10px] text-slate-400 font-bold block">الرقم الجامعي</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">كود العضو</span>
                         <span class="text-xs font-bold text-slate-800 dark:text-slate-200 font-num block mt-0.5" x-text="selectedMember?.university_id"></span>
                     </div>
                     <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center">
@@ -1328,8 +1462,8 @@
                     <form action="{{ route('team.invitations.send', $team->id) }}" method="POST" class="space-y-4">
                         @csrf
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">البريد الإلكتروني للزميل *</label>
-                            <input type="email" name="email" placeholder="example@gmail.com" required
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">البريد الإلكتروني للعضو *</label>
+                            <input type="email" name="email" placeholder="teammate@company.com" required
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
 
@@ -1339,10 +1473,11 @@
                                 <option value="مطور واجهات أمامية (Front-End)">مطور واجهات أمامية (Front-End)</option>
                                 <option value="مطور خلفية وسيرفرات (Back-End)">مطور خلفية وسيرفرات (Back-End)</option>
                                 <option value="مهندس ذكاء اصطناعي وتعلم آلة (AI & ML)">مهندس ذكاء اصطناعي وتعلم آلة (AI & ML)</option>
-                                <option value="مطور تطبيقات هواتف (Flutter)">مطور تطبيقات هواتف (Flutter)</option>
+                                <option value="مطور تطبيقات هواتف (Flutter / React Native)">مطور تطبيقات هواتف (Flutter / React Native)</option>
                                 <option value="مصمم واجهات وتجربة مستخدم (UI/UX)">مصمم واجهات وتجربة مستخدم (UI/UX)</option>
-                                <option value="مهندس جودة واختبارات (QA Tester)">مهندس جودة واختبارات (QA Tester)</option>
-                                <option value="مسؤول التوثيق والتقرير الأكاديمي (Documentation)">مسؤول التوثيق والتقرير الأكاديمي (Documentation)</option>
+                                <option value="مهندس جودة واختبارات (QA & Automation)">مهندس جودة واختبارات (QA & Automation)</option>
+                                <option value="مهندس بنية تحتية وأمن سحابي (DevOps & SecOps)">مهندس بنية تحتية وأمن سحابي (DevOps & SecOps)</option>
+                                <option value="مدير منتج وتوثيق فني (Product Manager)">مدير منتج وتوثيق فني (Product Manager)</option>
                             </select>
                         </div>
 
@@ -1370,7 +1505,7 @@
                     <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                         <div class="flex items-center gap-2">
                             <span class="text-xl">📋</span>
-                            <h3 class="text-sm font-black text-slate-900 dark:text-white">إضافة مهمة جديدة لمشروع التخرج</h3>
+                            <h3 class="text-sm font-black text-slate-900 dark:text-white">إضافة مهمة جديدة لمشروع العمل</h3>
                         </div>
                         <button @click="taskModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">✕</button>
                     </div>
@@ -1379,7 +1514,7 @@
                         @csrf
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان المهمة *</label>
-                            <input type="text" name="title" placeholder="مثال: تدريب نموذج ResNet أو بناء واجهة التسجيل..." required
+                            <input type="text" name="title" placeholder="مثال: هندسة وبرمجة نقطة اتصال الدفع الإلكتروني..." required
                                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
                         </div>
 
@@ -1420,7 +1555,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">وصف تفصيلي للمهمة</label>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">وصف تفصيلي للمهمة ومخرجاتها</label>
                             <textarea name="description" rows="3" placeholder="حدد متطلبات المهمة بدقة..."
                                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500"></textarea>
                         </div>
@@ -1439,43 +1574,67 @@
 
 
     <!-- ============================================================
-         MODAL 4: EDIT MEMBER ROLE MODAL (خاص بالقائد)
+         MODAL 4: UPLOAD DOCUMENT MODAL (VAULT)
          ============================================================ -->
-    @if($hasTeam && $isLeader)
-        <div x-show="roleModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+    @if($hasTeam)
+        <div x-show="docModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
             <div class="flex items-center justify-center min-h-screen px-4 py-6 bg-black/70 backdrop-blur-sm">
-                <div @click.outside="roleModal = false" 
-                     class="w-full max-w-md rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-2xl text-right space-y-4">
+                <div @click.outside="docModal = false" 
+                     class="w-full max-w-lg rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-2xl text-right space-y-4">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                         <div class="flex items-center gap-2">
-                            <span class="text-xl">✏️</span>
-                            <h3 class="text-sm font-black text-slate-900 dark:text-white">تعديل دور العضو في الفريق</h3>
+                            <span class="text-xl">📁</span>
+                            <h3 class="text-sm font-black text-slate-900 dark:text-white">رفع وثيقة أو مخرج في خزانة المشروع</h3>
                         </div>
-                        <button @click="roleModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">✕</button>
+                        <button @click="docModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">✕</button>
                     </div>
 
-                    <template x-if="memberToEdit">
-                        <form :action="'{{ url('/my-team/' . $team->id . '/members') }}/' + memberToEdit.id + '/role'" method="POST" class="space-y-4">
-                            @csrf
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم العضو</label>
-                                <p class="text-sm font-black text-indigo-600 dark:text-indigo-400" x-text="memberToEdit.name"></p>
-                            </div>
+                    <form action="{{ route('team.documents.store', $team->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم المستند أو المخرج *</label>
+                            <input type="text" name="title" placeholder="مثال: وثيقة المعمارية والمواصفات الفنية v2" required
+                                   class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-teal-500">
+                        </div>
 
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الدور المخصص في الفريق *</label>
-                                <input type="text" name="role_in_team" :value="memberToEdit.role_in_team" required
-                                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">تصنيف الوثيقة *</label>
+                                <select name="category" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-teal-500">
+                                    <option value="technical">وثائق تقنية ومواصفات (Technical)</option>
+                                    <option value="architecture">تصاميم ومعمارية ونماذج (Architecture)</option>
+                                    <option value="pitch_deck">عروض تقديمية (Pitch Deck)</option>
+                                    <option value="reports">تقارير فحص وجودة (QA & Security)</option>
+                                    <option value="agreements">اتفاقيات وسياسات عمل (Agreements)</option>
+                                    <option value="general">ملفات عامة أخرى (General)</option>
+                                </select>
                             </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">رقم الإصدار (Version)</label>
+                                <input type="text" name="version" value="v1.0" placeholder="v1.0"
+                                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-teal-500 font-num">
+                            </div>
+                        </div>
 
-                            <div class="pt-3 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-slate-800">
-                                <button type="button" @click="roleModal = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500">إلغاء</button>
-                                <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition">
-                                    حفظ التعديل ✓
-                                </button>
-                            </div>
-                        </form>
-                    </template>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اختيار الملف المراد رفعه (PDF, DOCX, PPTX, ZIP حتى 30MB) *</label>
+                            <input type="file" name="document_file" required
+                                   class="w-full text-xs text-slate-500 file:ml-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-teal-50 dark:file:bg-teal-950/80 file:text-teal-700 dark:file:text-teal-300 hover:file:bg-teal-100 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">وصف مختصر لمحتوى الملف</label>
+                            <textarea name="description" rows="2" placeholder="اشرح باختصار ما تتضمنه هذه الوثيقة..."
+                                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-teal-500"></textarea>
+                        </div>
+
+                        <div class="pt-3 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-slate-800">
+                            <button type="button" @click="docModal = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500">إلغاء</button>
+                            <button type="submit" class="px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md transition">
+                                رفع وحفظ في الخزانة 📁
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1522,6 +1681,50 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+    <!-- ============================================================
+         MODAL 6: EDIT MEMBER ROLE MODAL (خاص بمدير الفريق)
+         ============================================================ -->
+    @if($hasTeam && $isLeader)
+        <div x-show="roleModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+            <div class="flex items-center justify-center min-h-screen px-4 py-6 bg-black/70 backdrop-blur-sm">
+                <div @click.outside="roleModal = false" 
+                     class="w-full max-w-md rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-2xl text-right space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">✏️</span>
+                            <h3 class="text-sm font-black text-slate-900 dark:text-white">تعديل دور ومسؤولية العضو</h3>
+                        </div>
+                        <button @click="roleModal = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">✕</button>
+                    </div>
+
+                    <template x-if="memberToEdit">
+                        <form :action="'{{ url('/my-team/' . $team->id . '/members') }}/' + memberToEdit.id + '/role'" method="POST" class="space-y-4">
+                            @csrf
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم العضو</label>
+                                <p class="text-sm font-black text-indigo-600 dark:text-indigo-400" x-text="memberToEdit.name"></p>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">الدور والمسؤولية في المشروع *</label>
+                                <input type="text" name="role_in_team" :value="memberToEdit.role_in_team" required
+                                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
+                            </div>
+
+                            <div class="pt-3 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-slate-800">
+                                <button type="button" @click="roleModal = false" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500">إلغاء</button>
+                                <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition">
+                                    حفظ التعديل ✓
+                                </button>
+                            </div>
+                        </form>
+                    </template>
                 </div>
             </div>
         </div>

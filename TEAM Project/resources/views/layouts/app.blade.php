@@ -273,18 +273,44 @@
                 </a>
 
                 <!-- مساحة عمل الفريق ولوحة تحكم القائد -->
-                <a href="{{ route('team.workspace') }}"
-                    class="flex items-center justify-between px-4 py-3 rounded-xl transition font-semibold focus:outline-none select-none {{ request()->routeIs('team.*') ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-600/25 font-bold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white' }}">
-                    <div class="flex items-center space-x-3 space-x-reverse">
-                        <svg class="w-5 h-5 {{ request()->routeIs('team.*') ? 'text-white' : 'text-indigo-500 dark:text-indigo-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        <span>مساحة عمل فريقي</span>
+                <div x-data="{ teamMenuOpen: {{ request()->routeIs('team.*') ? 'true' : 'false' }} }" class="space-y-1">
+                    <button type="button" @click="teamMenuOpen = !teamMenuOpen"
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-xl transition font-semibold focus:outline-none select-none {{ request()->routeIs('team.*') ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-600/25 font-bold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white' }}">
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <svg class="w-5 h-5 {{ request()->routeIs('team.*') ? 'text-white' : 'text-indigo-500 dark:text-indigo-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span>مساحة عمل فريقي</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="px-2 py-0.5 text-[10px] font-black rounded-full {{ request()->routeIs('team.*') ? 'bg-white/20 text-white' : 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800' }}">
+                                إدارة الفريق
+                            </span>
+                            <svg class="w-4 h-4 transition-transform duration-300 {{ request()->routeIs('team.*') ? 'text-white' : 'text-slate-400' }}"
+                                :class="teamMenuOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <div x-show="teamMenuOpen" x-collapse class="pr-6 pl-2 pt-1 pb-1 space-y-1">
+                        <a href="{{ route('team.workspace') }}"
+                            class="flex items-center space-x-2 space-x-reverse px-3 py-2 rounded-xl text-xs transition {{ request()->routeIs('team.workspace') ? 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-black' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-white' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('team.workspace') ? 'bg-indigo-600' : 'bg-slate-400' }}"></span>
+                            <span>لوحة المتابعة والكانبان</span>
+                        </a>
+                        <a href="{{ route('team.discussions') }}"
+                            class="flex items-center space-x-2 space-x-reverse px-3 py-2 rounded-xl text-xs transition {{ request()->routeIs('team.discussions') ? 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-black' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-white' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('team.discussions') ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                            <span>غرفة العمليات والنقاشات</span>
+                        </a>
+                        <a href="{{ route('team.consultations') }}"
+                            class="flex items-center space-x-2 space-x-reverse px-3 py-2 rounded-xl text-xs transition {{ request()->routeIs('team.consultations') ? 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-black' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-white' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('team.consultations') ? 'bg-indigo-500' : 'bg-slate-400' }}"></span>
+                            <span>استشارات وخبراء المشروع</span>
+                        </a>
                     </div>
-                    <span class="px-2 py-0.5 text-[10px] font-black rounded-full {{ request()->routeIs('team.*') ? 'bg-white/20 text-white' : 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800' }}">
-                        إدارة الفريق
-                    </span>
-                </a>
+                </div>
 
                 {{-- قائمة إعدادات النظام --}}
                 @canany(['users.manage', 'roles.manage', 'lookups.manage', 'backups.manage', 'audit.view', 'trash.manage'])
@@ -404,8 +430,8 @@
 
                         <a href="{{ route('teams.index') }}"
                             class="flex items-center space-x-3 space-x-reverse px-4 py-2.5 rounded-xl transition text-xs font-semibold {{ request()->routeIs('teams.*') ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                            <span class="text-base">🎓</span>
-                            <span>الفرق ومشاريع التخرج</span>
+                            <span class="text-base">🚀</span>
+                            <span>دليل الفرق والمشاريع</span>
                         </a>
 
                         <a href="{{ route('companies.index') }}"

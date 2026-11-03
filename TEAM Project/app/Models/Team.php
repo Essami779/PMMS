@@ -90,6 +90,30 @@ class Team extends Model
     }
 
     /**
+     * خزانة وثائق ومخرجات المشروع
+     */
+    public function documents(): HasMany
+    {
+        return $this->hasMany(TeamDocument::class)->latest();
+    }
+
+    /**
+     * استشارات وجلسات توجيه الفريق
+     */
+    public function consultations(): HasMany
+    {
+        return $this->hasMany(TeamConsultation::class)->latest();
+    }
+
+    /**
+     * نقاشات وغرفة عمليات الفريق
+     */
+    public function discussions(): HasMany
+    {
+        return $this->hasMany(TeamDiscussion::class)->latest();
+    }
+
+    /**
      * فحص هل المستخدم الحالي هو قائد الفريق
      */
     public function isLeader(User $user): bool
