@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق الهاتف (Flutter) | النموذج التفاعلي</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Custom spinners & pulses */
+    .spin {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      to { transform: rotate(-360deg); }
+    }
+    
+    .pulse {
+      animation: heartPulse 0.8s infinite alternate;
+    }
+    @keyframes heartPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.25); color: var(--danger); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-layout-container">
+    <!-- Info / Control Panel on the Left -->
+    <div class="simulator-info-panel glass">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+        <span style="background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(139, 92, 246, 0.2);">تطبيق الموبايل</span>
+        <span style="background: rgba(6, 182, 212, 0.1); color: var(--accent); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(6, 182, 212, 0.2);">Flutter</span>
+      </div>
+      <h2>واجهة تطبيق الهاتف التفاعلية</h2>
+      <p>تطبيق هاتف مرن ومتكامل مع تفعيل جميع الأزرار والوظائف التفاعلية لمحاكاة تجربة مستخدم حقيقية:</p>
+      
+      <div class="feature-badge-list">
+        <!-- Badge 1: Client -->
+        <div class="feature-badge-item active" data-tab="client-portal">
+          <div class="feature-badge-icon">
+            <i data-lucide="user"></i>
+          </div>
+          <div class="feature-badge-text">
+            <h4>بوابة العميل (Client Portal)</h4>
+            <p>تتبع مراحل تقدم المشاريع، الفواتير، وجدول التحديثات.</p>
+          </div>
+        </div>
+        
+        <!-- Badge 2: Employee -->
+        <div class="feature-badge-item" data-tab="employee-portal">
+          <div class="feature-badge-icon" style="color: var(--accent); background: rgba(6, 182, 212, 0.1);">
+            <i data-lucide="code-2"></i>
+          </div>
+          <div class="feature-badge-text">
+            <h4>بوابة الموظف (Employee Portal)</h4>
+            <p>الملف الشخصي، تفاصيل العُهد والأجهزة، واقتراحات المهارات.</p>
+          </div>
+        </div>
+        
+        <!-- Badge 3: Supervisor -->
+        <div class="feature-badge-item" data-tab="supervisor-view">
+          <div class="feature-badge-icon" style="color: var(--warning); background: rgba(245, 158, 11, 0.1);">
+            <i data-lucide="shield"></i>
+          </div>
+          <div class="feature-badge-text">
+            <h4>واجهة المشرف (Supervisor View)</h4>
+            <p>ساعات النشاط، الملخص اليومي للمطورين وتتبع العمل الميداني.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px;">
+        <h5 style="font-weight: 700; margin-bottom: 8px; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="lightbulb" style="color: var(--warning); width:18px; height:18px;"></i>
+          ماذا يمكنك تجربته الآن؟
+        </h5>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.5; text-align: justify;">
+          - <strong>بوابة العميل:</strong> اضغط على مراحل المشروع لإكمالها، أو اضغط "ادفع الآن" لفتح شاشة الدفع السريع.<br>
+          - <strong>بوابة الموظف:</strong> اضغط "مزامنة النشاط البدني" لمزامنة خطوات المشي الحالية والنبض في الوقت الفعلي من ساعة اليد. يمكنك أيضاً تقديم طلبات العُهد وبدء الكورسات.<br>
+          - <strong>بوابة المشرف:</strong> ابدأ/أوقف تسجيل الحضور وساعات العمل، أو وافق على طلب إجازة أحمد المعروض مباشرة.
+        </p>
+      </div>
+    </div>
+
+    <!-- Phone Simulator Frame -->
+    <div class="phone-wrapper">
+      <div class="phone-notch">
+        <div class="phone-camera"></div>
+        <div class="phone-speaker"></div>
+      </div>
+      
+      <div class="phone-screen">
+        <!-- Status Bar -->
+        <div class="phone-status-bar">
+          <div class="phone-status-left">23:33</div>
+          <div class="phone-status-right">
+            <i data-lucide="wifi" style="width: 14px; height: 14px;"></i>
+            <i data-lucide="battery" style="width: 16px; height: 16px;"></i>
+          </div>
+        </div>
+        
+        <!-- Phone Content Area -->
+        <div class="phone-body">
+          
+          <!-- Screen 1: Client Portal -->
+          <div class="tab-screen active" id="client-portal">
+            <div class="phone-header">
+              <div>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">أهلاً بك عميلنا العزيز</p>
+                <h3>بوابة العميل</h3>
+              </div>
+              <div class="avatar-circle">ع</div>
+            </div>
+            
+            <!-- Progress Ring Widget -->
+            <div class="flutter-card progress-ring-container">
+              <div style="position: relative; width: 60px; height: 60px;">
+                <svg width="60" height="60" viewBox="0 0 60 60" style="transform: rotate(-90deg);">
+                  <circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,0.08)" stroke-width="5" fill="transparent" />
+                  <circle id="progress-svg-circle" cx="30" cy="30" r="26" stroke="url(#primary-grad)" stroke-width="5" fill="transparent" 
+                          stroke-dasharray="163.36" stroke-dashoffset="40.84" style="transition: stroke-dashoffset 0.6s ease-in-out;" />
+                  
+                  <defs>
+                    <linearGradient id="primary-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#8b5cf6" />
+                      <stop offset="100%" stop-color="#3b82f6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div id="progress-percentage" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.8rem; font-weight: 800; color: #fff;">
+                  75%
+                </div>
+              </div>
+              <div class="progress-info">
+                <h4>مشروع منصة إياد</h4>
+                <p>مرحلة إطلاق الواجهات التطبيقية</p>
+              </div>
+            </div>
+            
+            <!-- Milestone Timeline -->
+            <div class="flutter-card">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="git-merge" style="width:16px; height:16px; color:var(--primary);"></i>
+                مخطط المراحل (Milestones)
+              </h4>
+              <div class="timeline-list">
+                <div class="timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <h5>تصميم واجهات تجربة المستخدم</h5>
+                    <p>تم إنجاز التصميم واعتماده بالكامل</p>
+                  </div>
+                </div>
+                
+                <div class="timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <h5>بناء قاعدة البيانات ولوحة التحكم</h5>
+                    <p>ربط الـ API وقاعدة البيانات في Laravel</p>
+                  </div>
+                </div>
+                
+                <div class="timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <h5>تطوير تطبيق Flutter وموقع الويب</h5>
+                    <p>بناء الواجهات وتكامل الخدمات</p>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <h5>الاختبار والتدشين النهائي</h5>
+                    <p>تجهيز إطلاق الخدمة على المتاجر والسيرفر</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Invoices -->
+            <div class="flutter-card">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="credit-card" style="width:16px; height:16px; color:var(--primary);"></i>
+                الفواتير الإلكترونية
+              </h4>
+              <div class="invoice-item">
+                <div class="invoice-meta">
+                  <h6>دفعة إطلاق الواجهات</h6>
+                  <p>تاريخ الاستحقاق: 25-07-2026</p>
+                </div>
+                <div class="invoice-action">
+                  <div class="invoice-price">1,200$</div>
+                  <button class="invoice-btn">ادفع الآن</button>
+                </div>
+              </div>
+              
+              <div class="invoice-item">
+                <div class="invoice-meta">
+                  <h6>دفعة التعاقد وبناء الـ API</h6>
+                  <p>مدفوعة بتاريخ: 10-06-2026</p>
+                </div>
+                <div class="invoice-action">
+                  <div class="invoice-price">2,000$</div>
+                  <button class="invoice-btn paid">مكتملة</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Screen 2: Employee Portal -->
+          <div class="tab-screen" id="employee-portal">
+            <div class="phone-header">
+              <div>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">بوابة الموظف الرقمية</p>
+                <h3>ملف الموظف</h3>
+              </div>
+              <span id="employee-xp" style="background: rgba(6, 182, 212, 0.2); color: var(--accent); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">120 XP</span>
+            </div>
+            
+            <!-- Employee Info Header Card -->
+            <div class="flutter-card employee-header-card">
+              <div class="employee-avatar-lg">أ</div>
+              <div class="employee-info">
+                <h4>أحمد العتيبي</h4>
+                <p>مطور تطبيقات فلاتر (Senior Flutter Developer)</p>
+              </div>
+            </div>
+            
+            <!-- Assigned Assets (Specs) -->
+            <div class="flutter-card">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="laptop" style="width:16px; height:16px; color:var(--accent);"></i>
+                مواصفات العُهدة التقنية
+              </h4>
+              <div class="spec-list" style="margin-bottom:12px;">
+                <div class="spec-item">
+                  <p>الجهاز المخصص</p>
+                  <h6>MacBook Pro M3 Max</h6>
+                </div>
+                <div class="spec-item">
+                  <p>الذاكرة العشوائية</p>
+                  <h6>64 GB Unified</h6>
+                </div>
+                <div class="spec-item">
+                  <p>السعة التخزينية</p>
+                  <h6>1 TB SSD Superfast</h6>
+                </div>
+                <div class="spec-item">
+                  <p>الحالة الفنية للعهدة</p>
+                  <h6 style="color: var(--success);">ممتازة ونشطة</h6>
+                </div>
+              </div>
+              
+              <button id="request-asset-btn" class="btn btn-secondary" style="width:100%; font-size:0.75rem; padding:8px;">
+                <i data-lucide="plus-circle" style="width:14px; height:14px; color:var(--accent);"></i>
+                طلب عُهدة أو جهاز جديد
+              </button>
+            </div>
+
+            <!-- Health & Smartwatch Sync Widget (NEW FEATURE!) -->
+            <div class="flutter-card">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i id="health-heart-icon" data-lucide="heart" style="width:16px; height:16px; color:var(--danger); transition: all 0.3s ease;"></i>
+                مؤشرات الحالة الصحية والنشاط
+              </h4>
+              <div class="spec-list" style="margin-bottom:12px;">
+                <div class="spec-item">
+                  <p>نبض القلب</p>
+                  <h6 id="health-heart-rate">68 bpm</h6>
+                </div>
+                <div class="spec-item">
+                  <p>أوكسجين الدم SpO2</p>
+                  <h6 id="health-blood-oxygen">97%</h6>
+                </div>
+                <div class="spec-item" style="grid-column: span 2;">
+                  <p>خطوات المشي اليوم (الهدف: 10,000)</p>
+                  <h6 id="health-steps-count">3,120</h6>
+                </div>
+              </div>
+              <button id="sync-health-btn" class="btn btn-secondary" style="width:100%; font-size:0.75rem; padding:8px; border-color:rgba(239, 68, 68, 0.2);">
+                <i data-lucide="refresh-cw" style="width:12px; height:12px;"></i>
+                مزامنة النشاط البدني
+              </button>
+            </div>
+            
+            <!-- Skill Recommendations -->
+            <div class="flutter-card">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="graduation-cap" style="width:16px; height:16px; color:var(--accent);"></i>
+                توصيات تطوير المهارات
+              </h4>
+              <div class="skill-recommendations-list">
+                <div class="skill-recommendation-item">
+                  <div class="skill-info">
+                    <h6>أتمتة النشر عبر GitHub Actions</h6>
+                    <p>مسار مقترح من المشرف لتسريع النشر</p>
+                  </div>
+                  <button class="skill-start-btn">ابدأ الآن</button>
+                </div>
+                
+                <div class="skill-recommendation-item">
+                  <div class="skill-info">
+                    <h6>إدارة الحالات المتقدمة باستخدام BLoC</h6>
+                    <p>ترشيح ذكي بالذكاء الاصطناعي للمنصة</p>
+                  </div>
+                  <button class="skill-start-btn">ابدأ الآن</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Screen 3: Supervisor View -->
+          <div class="tab-screen" id="supervisor-view">
+            <div class="phone-header">
+              <div>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">لوحة إشراف المطورين</p>
+                <h3>رصد وتتبع الأنشطة</h3>
+              </div>
+              <div class="avatar-circle" style="background:var(--warning)">م</div>
+            </div>
+            
+            <!-- Active Time Tracking Widget -->
+            <div class="flutter-card supervisor-timer-widget">
+              <div class="supervisor-timer" id="stopwatch-timer">06:42:15</div>
+              <div class="supervisor-timer-status" id="supervisor-status-text" style="color: var(--success); margin-bottom: 15px;">
+                نشط حالياً ويتم تسجيل الوقت
+              </div>
+              <button class="btn btn-primary" id="supervisor-check-btn" style="background: var(--danger); font-size: 0.8rem; padding: 8px 24px; border-radius: 20px; box-shadow:none;">
+                تسجيل خروج
+              </button>
+            </div>
+            
+            <!-- Pending Requests Approvals inside Mobile -->
+            <div class="flutter-card" id="supervisor-pending-request-box">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="clock" style="width:16px; height:16px; color:var(--warning);"></i>
+                طلبات إجازة معلقة للمراجعة
+              </h4>
+              <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04); margin-bottom: 10px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                  <strong>أحمد العتيبي (إجازة مرضية)</strong>
+                  <span style="color:var(--text-muted); font-size:0.7rem;">يوم واحد (غداً)</span>
+                </div>
+                <p style="font-size:0.7rem; color:var(--text-muted);">السبب: عارض صحي طارئ ومراجعة المشفى.</p>
+              </div>
+              <button id="supervisor-approve-req-btn" class="btn btn-primary" style="width:100%; font-size:0.75rem; padding:8px; background:var(--success); box-shadow:none;">
+                موافقة واعتماد الطلب
+              </button>
+            </div>
+
+            <!-- Employee Activity Summary -->
+            <div class="flutter-card">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="activity" style="width:16px; height:16px; color:var(--warning);"></i>
+                سجل النشاط المباشر اليوم
+              </h4>
+              <div class="activity-log-list">
+                <div class="activity-log-item commit">
+                  <div>تم رفع كود التعديل والتكامل مع GitHub للـ API</div>
+                  <div class="activity-log-time">10:45 AM</div>
+                </div>
+                <div class="activity-log-item">
+                  <div>تم التعليق والموافقة على Pull Request #22</div>
+                  <div class="activity-log-time">09:30 AM</div>
+                </div>
+                <div class="activity-log-item">
+                  <div>بدء النشاط وتسجيل الدخول الصباحي للشركة</div>
+                  <div class="activity-log-time">09:00 AM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Bottom Tab Bar -->
+        <nav class="phone-navbar">
+          <button class="phone-nav-item active" data-tab="client-portal">
+            <i data-lucide="user"></i>
+            <span>العميل</span>
+          </button>
+          
+          <button class="phone-nav-item" data-tab="employee-portal">
+            <i data-lucide="code-2"></i>
+            <span>الموظف</span>
+          </button>
+          
+          <button class="phone-nav-item" data-tab="supervisor-view">
+            <i data-lucide="shield"></i>
+            <span>المشرف</span>
+          </button>
+        </nav>
+
+        <!-- Dynamic Overlay Modal 1: Payment Checkout -->
+        <div class="mobile-modal-overlay" id="mobile-payment-modal">
+          <div class="mobile-modal-content">
+            <h4 class="mobile-modal-title">سداد الفاتورة الإلكترونية المباشر</h4>
+            <p style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:15px;">
+              قيمة الفاتورة المحددة: <strong style="color:white; font-size:0.9rem;" id="payment-amount">0$</strong>
+            </p>
+            
+            <div style="margin-bottom: 15px;">
+              <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:4px;">البطاقة المحفوظة للعميل</label>
+              <select class="mobile-input-select" style="margin-bottom:0;">
+                <option>Visa ending in **** 5432</option>
+                <option>Apple Pay (Wallet Digital)</option>
+              </select>
+            </div>
+
+            <div class="mobile-modal-actions">
+              <button id="confirm-mobile-payment" class="btn btn-primary" style="padding: 10px;">تأكيد الدفع والسداد</button>
+              <button id="cancel-mobile-payment" class="btn btn-secondary" style="padding: 10px;">إلغاء</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Overlay Modal 2: Hardware Asset Request -->
+        <div class="mobile-modal-overlay" id="mobile-asset-modal">
+          <div class="mobile-modal-content">
+            <h4 class="mobile-modal-title">تقديم طلب عُهدة تقنية جديدة</h4>
+            <p style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:15px;">
+              اختر نوع الجهاز أو العهدة البرمجية المطلوبة ليتم تسليم طلبك للمشرف والمدير لاعتماده.
+            </p>
+            
+            <div>
+              <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:4px;">اختر الجهاز التقني</label>
+              <select id="asset-select" class="mobile-input-select">
+                <option value="phone">هاتف تجريب أندرويد (Google Pixel 8)</option>
+                <option value="tablet">جهاز لوحي للاختبارات (iPad Pro M2)</option>
+                <option value="monitor">شاشة عرض عريضة (UltraWide 34")</option>
+                <option value="accessory">لوحة مفاتيح ميكانيكية ماجيك</option>
+              </select>
+            </div>
+
+            <div class="mobile-modal-actions">
+              <button id="submit-asset-request" class="btn btn-primary" style="padding: 10px; background:var(--accent-gradient);">إرسال طلب العُهدة</button>
+              <button id="cancel-asset-request" class="btn btn-secondary" style="padding: 10px;">إلغاء</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Navigation Hub Link -->
+  <a href="index.html" class="hub-back-btn">
+    <i data-lucide="home"></i>
+    <span>الرجوع إلى البوابة الرئيسية</span>
+  </a>
+
+  <!-- Initialize icons & load code -->
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="js/mobile.js"></script>
+</body>
+</html>

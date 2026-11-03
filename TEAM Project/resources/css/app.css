@@ -1,0 +1,845 @@
+@import url("https://fonts.googleapis.com/css2?family=Al+Yamama:wght@400;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* منع وميض العناصر قبل تهيئة Alpine.js (النوافذ المنبثقة) */
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body,
+    table,
+    th,
+    td,
+    input,
+    select,
+    textarea,
+    button,
+    p,
+    span,
+    a,
+    li,
+    label {
+        font-family: "Cairo", sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-heading,
+    .title {
+        font-family: "Cairo", sans-serif;
+    }
+
+    /* إصلاح أسهم القوائم المنسدلة للغة العربية RTL بشكل ناصع وواضح */
+    select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23f59e0b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+        background-position: left 0.6rem center !important;
+        background-repeat: no-repeat !important;
+        background-size: 1.15em 1.15em !important;
+        padding-left: 2rem !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+
+    /* إصلاح اتجاه عرض التاريخ والوقت في جميع الحقول لمنع انعكاس الحروف والكلمات (قنس/رهنش/موي)
+       يجب أن يكون الاتجاه RTL لأن المتصفح يعرض نص الأجزاء (يوم/شهر/سنة) بشكل معكوس عند فرض LTR */
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="time"] {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+
+    /* فرض RTL على أجزاء التاريخ الداخلية في كروم لمنع انعكاس الحروف داخل كل جزء */
+    input[type="date"]::-webkit-datetime-edit,
+    input[type="datetime-local"]::-webkit-datetime-edit,
+    input[type="month"]::-webkit-datetime-edit {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+}
+
+/* ==========================================================================
+   تنسيقات الجداول المالية (يومية الخزينة، الشيكات، أوامر الصرف، التقارير)
+   - تباعد رأسي متقارب ومريح (Compact rows)
+   - تبادل ألوان السطور (سطر أبيض وسطر رمادي خفيف)
+   - تأثير هوفر سلس وتفاعلي
+   ========================================================================== */
+
+/* 1. مقاربة ارتفاع سطور الجداول */
+.journals-table tbody td:not([colspan]),
+.checks-table tbody td:not([colspan]),
+.disb-table tbody td:not([colspan]),
+.ledger-table tbody td:not([colspan]),
+.report-table tbody td:not([colspan]),
+.audit-table tbody td:not([colspan]),
+.finance-table tbody td:not([colspan]) {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    vertical-align: middle !important;
+    font-size: 12.5px !important;
+}
+
+.journals-table thead th,
+.checks-table thead th,
+.disb-table thead th,
+.ledger-table thead th,
+.report-table thead th,
+.finance-table thead th {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 12.5px !important;
+    vertical-align: middle !important;
+}
+
+/* 2. تبادل خلفية السطور (سطر أبيض وسطر رمادي خفيف) */
+.journals-table tbody tr:nth-child(odd),
+.checks-table tbody tr:nth-child(odd),
+.disb-table tbody tr:nth-child(odd),
+.loans-table tbody tr:nth-child(odd),
+.ledger-table tbody tr:nth-child(odd),
+.report-table tbody tr:nth-child(odd),
+.finance-table tbody tr:nth-child(odd) {
+    background-color: #ffffff !important;
+}
+
+.journals-table tbody tr:nth-child(even),
+.checks-table tbody tr:nth-child(even),
+.disb-table tbody tr:nth-child(even),
+.loans-table tbody tr:nth-child(even),
+.ledger-table tbody tr:nth-child(even),
+.report-table tbody tr:nth-child(even),
+.finance-table tbody tr:nth-child(even) {
+    background-color: #f8fafc !important;
+}
+
+/* في الوضع الليلي Dark Mode */
+.dark .journals-table tbody tr:nth-child(odd),
+.dark .checks-table tbody tr:nth-child(odd),
+.dark .disb-table tbody tr:nth-child(odd),
+.dark .loans-table tbody tr:nth-child(odd),
+.dark .ledger-table tbody tr:nth-child(odd),
+.dark .report-table tbody tr:nth-child(odd),
+.dark .finance-table tbody tr:nth-child(odd) {
+    background-color: #1e293b !important;
+}
+
+.dark .journals-table tbody tr:nth-child(even),
+.dark .checks-table tbody tr:nth-child(even),
+.dark .disb-table tbody tr:nth-child(even),
+.dark .loans-table tbody tr:nth-child(even),
+.dark .ledger-table tbody tr:nth-child(even),
+.dark .report-table tbody tr:nth-child(even),
+.dark .finance-table tbody tr:nth-child(even) {
+    background-color: #0f172a !important;
+}
+
+/* 3. تأثير الهوفر الناعم عند التمرير */
+.journals-table tbody tr,
+.checks-table tbody tr,
+.disb-table tbody tr,
+.loans-table tbody tr,
+.ledger-table tbody tr,
+.report-table tbody tr,
+.finance-table tbody tr {
+    transition: background-color 0.15s ease-in-out !important;
+}
+
+.journals-table tbody tr:hover {
+    background-color: #fef3c7 !important;
+}
+
+.checks-table tbody tr:hover {
+    background-color: #ecfdf5 !important;
+}
+
+.disb-table tbody tr:hover {
+    background-color: #eff6ff !important;
+}
+
+.loans-table tbody tr:hover {
+    background-color: #faf5ff !important;
+}
+
+.ledger-table tbody tr:hover,
+.report-table tbody tr:hover,
+.finance-table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+}
+
+.dark .journals-table tbody tr:hover,
+.dark .checks-table tbody tr:hover,
+.dark .disb-table tbody tr:hover,
+.dark .loans-table tbody tr:hover,
+.dark .ledger-table tbody tr:hover,
+.dark .report-table tbody tr:hover,
+.dark .finance-table tbody tr:hover {
+    background-color: #334155 !important;
+}
+
+/* ==========================================================================
+   تنسيقات الأزرار البيضاوية وشارات التبويبات الفاخرة (محسّنة الأبعاد والبادينج)
+   ========================================================================== */
+
+/* 1. الزر الكحلي/الأرجواني البيضاوي النشط (مثل تبويب أنواع المذكرات) */
+.btn-pill-indigo,
+.tab-pill-active {
+    background: linear-gradient(
+        135deg,
+        #1d277d 0%,
+        #2430a3 50%,
+        #1c2478 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(29, 39, 125, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.btn-pill-indigo:hover,
+.tab-pill-active:hover {
+    background: linear-gradient(
+        135deg,
+        #222ea0 0%,
+        #2d3cc4 50%,
+        #222d95 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(29, 39, 125, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* الزر الأحمر البيضاوي الفاخر للطباعة */
+.btn-pill-red {
+    background: linear-gradient(
+        135deg,
+        #b91c1c 0%,
+        #dc2626 50%,
+        #991b1b 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(220, 38, 38, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.btn-pill-red:hover {
+    background: linear-gradient(
+        135deg,
+        #dc2626 0%,
+        #ef4444 50%,
+        #b91c1c 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(220, 38, 38, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* شارة العداد الصفراء الدائرية البارزة (مثل رقم 8 بالصورة) */
+.badge-pill-yellow {
+    background-color: #ffc107 !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    border-radius: 9999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 2. زر العمليات الرئيسي البرتقالي/الذهبي البيضاوي (+ تسجيل مذكرة جديدة) */
+.btn-pill-amber,
+.btn-primary-pill {
+    background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%) !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.38) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.btn-pill-amber:hover,
+.btn-primary-pill:hover {
+    background: linear-gradient(135deg, #d97706 0%, #f97316 100%) !important;
+    color: #020617 !important;
+    box-shadow: 0 6px 20px 0 rgba(245, 158, 11, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* زر اختيار الملفات الأخضر الزمردي البيضاوي */
+.btn-pill-emerald {
+    background: linear-gradient(
+        135deg,
+        #047857 0%,
+        #059669 50%,
+        #065f46 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(5, 150, 105, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.btn-pill-emerald:hover {
+    background: linear-gradient(
+        135deg,
+        #059669 0%,
+        #10b981 50%,
+        #047857 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(5, 150, 105, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* زر الاسكانر/الكاميرا الأزرق السماوي البيضاوي */
+.btn-pill-sky {
+    background: linear-gradient(
+        135deg,
+        #0369a1 0%,
+        #0284c7 50%,
+        #075985 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.btn-pill-sky:hover {
+    background: linear-gradient(
+        135deg,
+        #0284c7 0%,
+        #0ea5e9 50%,
+        #0369a1 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(2, 132, 199, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* زر البنفسجي الفاخر */
+.btn-pill-purple {
+    background: linear-gradient(
+        135deg,
+        #6b21a8 0%,
+        #7e22ce 50%,
+        #581c87 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(126, 34, 206, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.btn-pill-purple:hover {
+    background: linear-gradient(
+        135deg,
+        #7e22ce 0%,
+        #9333ea 50%,
+        #6b21a8 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(126, 34, 206, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* زر الأسود الداكن الفاخر */
+.btn-pill-dark {
+    background: linear-gradient(
+        135deg,
+        #0f172a 0%,
+        #1e293b 50%,
+        #020617 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.4) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.btn-pill-dark:hover {
+    background: linear-gradient(
+        135deg,
+        #1e293b 0%,
+        #334155 50%,
+        #0f172a 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(15, 23, 42, 0.6) !important;
+    transform: translateY(-1px);
+}
+
+/* زر الوردي الفاخر */
+.btn-pill-rose {
+    background: linear-gradient(
+        135deg,
+        #be123c 0%,
+        #e11d48 50%,
+        #9f1239 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(225, 29, 72, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.btn-pill-rose:hover {
+    background: linear-gradient(
+        135deg,
+        #e11d48 0%,
+        #f43f5e 50%,
+        #be123c 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(225, 29, 72, 0.5) !important;
+    transform: translateY(-1px);
+}
+
+/* 3. التبويبات غير النشطة */
+.tab-pill-inactive {
+    border-radius: 9999px !important;
+    border: 1px solid rgba(203, 213, 225, 0.9) !important;
+    background-color: #ffffff !important;
+    color: #475569 !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.dark .tab-pill-inactive {
+    border-color: rgba(51, 65, 85, 0.9) !important;
+    background-color: #1e293b !important;
+    color: #cbd5e1 !important;
+}
+
+.tab-pill-inactive:hover {
+    border-color: #f59e0b !important;
+    color: #0f172a !important;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06) !important;
+    transform: translateY(-1px);
+}
+
+.dark .tab-pill-inactive:hover {
+    border-color: #f59e0b !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   تحسينات الدارك مود لصفحة مصفوفة الصلاحيات والأزرار البيضاوية الفاخرة
+   ========================================================================== */
+
+/* 1. الزر الكحلي/الأرجواني البيضاوي النشط (الوضع الداكن) */
+.dark .btn-pill-indigo,
+.dark .tab-pill-active {
+    background: linear-gradient(
+        135deg,
+        #3730a3 0%,
+        #4f46e5 50%,
+        #4338ca 100%
+    ) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.4) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark .btn-pill-indigo:hover,
+.dark .tab-pill-active:hover {
+    background: linear-gradient(
+        135deg,
+        #4338ca 0%,
+        #6366f1 50%,
+        #3730a3 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.6) !important;
+    transform: translateY(-1px);
+}
+
+/* زر الأزرق السماوي البيضاوي (الوضع الداكن) */
+.dark .btn-pill-sky {
+    background: linear-gradient(
+        135deg,
+        #0284c7 0%,
+        #0ea5e9 50%,
+        #0369a1 100%
+    ) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+}
+
+.dark .btn-pill-sky:hover {
+    background: linear-gradient(
+        135deg,
+        #0369a1 0%,
+        #38bdf8 50%,
+        #0284c7 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(56, 189, 248, 0.5) !important;
+}
+
+/* زر الأخضر الزمردي البيضاوي (الوضع الداكن) */
+.dark .btn-pill-emerald {
+    background: linear-gradient(
+        135deg,
+        #047857 0%,
+        #10b981 50%,
+        #065f46 100%
+    ) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+}
+
+.dark .btn-pill-emerald:hover {
+    background: linear-gradient(
+        135deg,
+        #059669 0%,
+        #34d399 50%,
+        #047857 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(52, 211, 153, 0.5) !important;
+}
+
+/* الزر الأحمر البيضاوي الفاخر (الوضع الداكن) */
+.dark .btn-pill-red {
+    background: linear-gradient(
+        135deg,
+        #b91c1c 0%,
+        #ef4444 50%,
+        #991b1b 100%
+    ) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+}
+
+.dark .btn-pill-red:hover {
+    background: linear-gradient(
+        135deg,
+        #dc2626 0%,
+        #f87171 50%,
+        #b91c1c 100%
+    ) !important;
+    box-shadow: 0 6px 20px 0 rgba(248, 113, 113, 0.5) !important;
+}
+
+/* إخفاء شريط التمرير بالكامل مع الحفاظ على إمكانية السحب والتمرير */
+.no-scrollbar::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+}
+
+/* شريط التمرير المخصص والشياكة */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* تنسيق شريط التمرير في الوضع الداكن داخل جدول المصفوفة */
+.dark .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 8px;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 8px;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* تحسين مظهر checkbox في الوضع الداكن */
+.dark input[type="checkbox"]:not(:checked) {
+    background-color: #1e293b;
+    border-color: #475569;
+}
+
+.dark input[type="checkbox"]:not(:checked):hover {
+    border-color: #a855f7;
+}
+
+.dark input[type="checkbox"]:disabled {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    opacity: 0.5 !important;
+}
+
+/* تحسين تباين صفوف الجدول في الوضع الداكن */
+.dark .matrix-row-even {
+    background-color: rgba(30, 41, 59, 0.3);
+}
+
+/* خلفية الموديلات (Modals) في الوضع الداكن */
+.dark .modal-overlay {
+    background-color: rgba(15, 23, 42, 0.85);
+}
+
+/* تحسين حواف البطاقات في تبويب السجل (Registry) */
+.dark .registry-card {
+    border-color: rgba(71, 85, 105, 0.5);
+}
+
+/* تحسين ظهور الإدخالات النصية المعطلة */
+.dark input:disabled,
+.dark select:disabled,
+.dark textarea:disabled {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #64748b;
+}
+
+/* ===================================================
+   🕒 Live Clock Widget Styles (Light & Dark Themes)
+   =================================================== */
+
+/* 1. حاوية الكبسولة الرقمية */
+.digital-clock-card {
+    background: linear-gradient(135deg, #f0f7ff, #f8fafc, #e0f2fe);
+    border-color: #bfdbfe;
+    transition: all 0.3s ease;
+}
+
+.dark .digital-clock-card {
+    background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+    border-color: #334155 !important;
+}
+
+/* 2. كبسولات أرقام الوقت (الساعات والدقائق) */
+.digital-clock-pill {
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1.5px solid #cbd5e1;
+    transition: all 0.2s ease;
+}
+
+.dark .digital-clock-pill {
+    background-color: #0b1120 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+/* 3. كبسولة AM / PM */
+.digital-clock-ampm {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: 1.5px solid #bfdbfe;
+}
+
+.dark .digital-clock-ampm {
+    background-color: rgba(30, 58, 138, 0.5) !important;
+    color: #93c5fd !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+/* 4. شريط التاريخ */
+.digital-clock-date {
+    background-color: #ffffff;
+    color: #334155;
+    border: 1px solid #bfdbfe;
+}
+
+.dark .digital-clock-date {
+    background-color: #0b1120 !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+/* ===================================================
+   🕰️ أنماط ساعة العقارب SVG
+   =================================================== */
+
+/* قاعدة الإطار الدائري الخارجي */
+.analog-dial-base {
+    fill: #ffffff;
+    stroke: #cbd5e1;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.dark .analog-dial-base {
+    fill: #0f172a !important;
+    stroke: #334155 !important;
+}
+
+/* الحلقة الداخلية للقرص */
+.analog-dial-inner {
+    fill: none;
+    stroke: #f1f5f9;
+}
+
+.dark .analog-dial-inner {
+    stroke: #1e293b !important;
+}
+
+/* أرقام الساعة الـ 12 */
+.analog-dial-number {
+    fill: #1e293b;
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    user-select: none;
+}
+
+.dark .analog-dial-number {
+    fill: #f1f5f9 !important;
+}
+
+/* تدريجات الساعات الرئيسية */
+.analog-tick-hour {
+    stroke: #475569;
+}
+
+.dark .analog-tick-hour {
+    stroke: #94a3b8 !important;
+}
+
+/* تدريجات الدقائق الفرعية */
+.analog-tick-min {
+    stroke: #94a3b8;
+}
+
+.dark .analog-tick-min {
+    stroke: #475569 !important;
+}
+
+/* عقرب الساعات */
+.analog-hand-hour {
+    stroke: #2e384d;
+    transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
+.dark .analog-hand-hour {
+    stroke: #f1f5f9 !important;
+}
+
+/* عقرب الدقائق */
+.analog-hand-min {
+    stroke: #475569;
+    transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
+.dark .analog-hand-min {
+    stroke: #60a5fa !important;
+}
+/* ==========================================================================
+   تنسيقات شريط تصفية العملات والبطاقات الثلاثية الموحدة (Multi-Currency Styles)
+   ========================================================================== */
+.curr-card-subbox {
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    transition: all 0.2s ease-in-out;
+}
+.dark .curr-card-subbox {
+    background-color: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.curr-outer-card-YER {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(37, 99, 235, 0.05) 100%);
+}
+.dark .curr-outer-card-YER {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.18) 0%, rgba(15, 23, 42, 0.92) 50%, rgba(37, 99, 235, 0.1) 100%) !important;
+}
+.curr-outer-card-SAR {
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(217, 119, 6, 0.05) 100%);
+}
+.dark .curr-outer-card-SAR {
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.18) 0%, rgba(15, 23, 42, 0.92) 50%, rgba(217, 119, 6, 0.1) 100%) !important;
+}
+.curr-outer-card-USD {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(5, 150, 105, 0.05) 100%);
+}
+.dark .curr-outer-card-USD {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.18) 0%, rgba(15, 23, 42, 0.92) 50%, rgba(5, 150, 105, 0.1) 100%) !important;
+}
+.curr-switcher-bar {
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.85) 0%, rgba(241, 245, 249, 0.85) 100%);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+.dark .curr-switcher-bar {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.85) 100%) !important;
+    border: 1px solid rgba(51, 65, 85, 0.8) !important;
+}
+.curr-switcher-group {
+    background-color: rgba(241, 245, 249, 0.9);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+}
+.dark .curr-switcher-group {
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid rgba(51, 65, 85, 0.8) !important;
+}
+.curr-pill-inactive {
+    color: #334155;
+    background-color: transparent;
+}
+.curr-pill-inactive:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #0f172a;
+}
+.dark .curr-pill-inactive {
+    color: #94a3b8;
+}
+.dark .curr-pill-inactive:hover {
+    background-color: rgba(30, 41, 59, 0.8);
+    color: #f8fafc;
+}
+

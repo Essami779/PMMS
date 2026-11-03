@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة الويب لإدارة الوكالة البرمجية | Web Suite</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/web.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Spinning animation for loading state */
+    .spin {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      to { transform: rotate(-360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="web-app-container">
+    <!-- Sidebar (Right side in RTL) -->
+    <aside class="web-sidebar">
+      <div class="sidebar-logo">
+        <i data-lucide="layers"></i>
+        <h2>إدارة الوكالة</h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <button class="menu-item active" data-page="client-dashboard">
+            <i data-lucide="layout-grid"></i>
+            <span>لوحة تحكم العميل</span>
+          </button>
+        </li>
+        <li>
+          <button class="menu-item" data-page="developer-workspace">
+            <i data-lucide="trello"></i>
+            <span>مساحة عمل المطورين</span>
+          </button>
+        </li>
+        <li>
+          <button class="menu-item" data-page="finance-resources">
+            <i data-lucide="landmark"></i>
+            <span>المالية وإدارة الموارد</span>
+          </button>
+        </li>
+        <li>
+          <button class="menu-item" data-page="ai-assistance">
+            <i data-lucide="bot"></i>
+            <span>مساعد الذكاء الاصطناعي</span>
+          </button>
+        </li>
+      </ul>
+      
+      <div style="margin-top:auto; padding:20px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid var(--border-color); font-size:0.8rem; text-align:center;">
+        <span style="color:var(--text-muted)">نموذج ويب تجريبي تفاعلي</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="web-content">
+      <!-- Top Header Bar -->
+      <header class="web-header">
+        <div class="header-search">
+          <i data-lucide="search" style="width:16px; height:16px; color:var(--text-muted)"></i>
+          <input type="text" placeholder="ابحث عن مشاريع، مهام، عقود...">
+        </div>
+        <div class="header-profile">
+          <div class="notification-badge" onclick="alert('لا توجد تنبيهات جديدة حالياً.')">
+            <i data-lucide="bell" style="width:20px; height:20px;"></i>
+            <span class="notification-dot"></span>
+          </div>
+          <div class="user-badge">
+            <div style="width:28px; height:28px; border-radius:50%; background:var(--primary-gradient); display:flex; align-items:center; justify-content:center; color:white; font-size:0.75rem; font-weight:800;">م</div>
+            <span>المدير الفني للوكالة</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: Client Dashboard -->
+      <section class="page-view active" id="client-dashboard">
+        <div class="page-title-section">
+          <h1>لوحة تحكم العميل</h1>
+          <p>استعراض نسبة إنجاز مشاريعك، ملفات التسليمات، والفواتير الرقمية للتعاقدات.</p>
+        </div>
+
+        <div class="client-dashboard-grid">
+          <div>
+            <!-- Roadmap / Timeline -->
+            <div class="roadmap-card glass">
+              <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="map" style="color:var(--primary)"></i>
+                خارطة طريق المشروع (Project Roadmap)
+              </h3>
+              
+              <div class="roadmap-timeline">
+                <div class="roadmap-node completed open">
+                  <div class="roadmap-node-header">
+                    <span class="roadmap-node-title">المرحلة الأولى: هندسة المتطلبات وتهيئة قاعدة البيانات</span>
+                    <i data-lucide="chevron-down" style="width:16px; height:16px; color:var(--text-muted)"></i>
+                  </div>
+                  <div class="roadmap-node-desc">
+                    تمت صياغة الوثائق الفنية وتأسيس سيرفر التطوير وبناء الجداول الأساسية بنسبة 100%. تم الرفع على المستودع.
+                  </div>
+                </div>
+
+                <div class="roadmap-node active open">
+                  <div class="roadmap-node-header">
+                    <span class="roadmap-node-title">المرحلة الثانية: واجهات Flutter وتكامل الـ API</span>
+                    <i data-lucide="chevron-down" style="width:16px; height:16px; color:var(--text-muted)"></i>
+                  </div>
+                  <div class="roadmap-node-desc">
+                    بناء صفحات العميل والموظف ولوحة تحكم المشرف وربطها مع Laravel. نسبة الإنجاز الحالية: 80% (قيد المراجعة).
+                  </div>
+                </div>
+
+                <div class="roadmap-node">
+                  <div class="roadmap-node-header">
+                    <span class="roadmap-node-title">المرحلة الثالثة: لوحة قياس الذكاء الاصطناعي والتنبؤات</span>
+                    <i data-lucide="chevron-down" style="width:16px; height:16px; color:var(--text-muted)"></i>
+                  </div>
+                  <div class="roadmap-node-desc">
+                    Tضمين نموذج التنبؤ بالمخاطر وتوقع فترات التأخير ودعم العقود الذكية والتوقيع الإلكتروني.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deliverable files grid -->
+            <div class="roadmap-card glass">
+              <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="folder-git-2" style="color:var(--primary)"></i>
+                ملفات التسليمات والتقارير
+              </h3>
+              <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px;">اضغط على أي ملف لمحاكاة عملية تحميل آمنة من سيرفرات الوكالة.</p>
+              
+              <div class="files-grid">
+                <div class="file-card">
+                  <div class="file-icon"><i data-lucide="file-text"></i></div>
+                  <h5>مخطط التصميم SRS</h5>
+                  <p>تنسيق PDF (4.2 MB)</p>
+                </div>
+                <div class="file-card">
+                  <div class="file-icon"><i data-lucide="file-video"></i></div>
+                  <h5>عرض فيديو للمخرجات</h5>
+                  <p>تنسيق MP4 (28 MB)</p>
+                </div>
+                <div class="file-card">
+                  <div class="file-icon" style="color:var(--accent); background:rgba(6,182,212,0.1)"><i data-lucide="archive"></i></div>
+                  <h5>أكواد تطبيق الموبايل</h5>
+                  <p>تنسيق ZIP (115 MB)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left column (Invoices & summary info) -->
+          <div>
+            <div class="roadmap-card glass" style="margin-bottom:30px;">
+              <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="file-check-2" style="color:var(--success)"></i>
+                الفواتير المستحقة للعميل
+              </h3>
+              
+              <div id="web-pending-invoice-box" style="background:rgba(255,255,255,0.02); padding:15px; border-radius:10px; border:1px solid var(--border-color); margin-bottom:15px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                  <strong style="font-size:0.9rem;">الدفعة الثالثة (النشر النهائي)</strong>
+                  <span style="color:var(--warning); font-size:0.8rem; font-weight:700;">غير مدفوعة</span>
+                </div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">استحقاق: 01-08-2026</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-weight:800; font-size:1.1rem; color:var(--text-primary)">3,500$</span>
+                  <button id="web-pay-invoice-btn" class="btn btn-secondary" style="font-size:0.75rem; padding:6px 12px;">ادفع الآن</button>
+                </div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.02); padding:15px; border-radius:10px; border:1px solid var(--border-color);">
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                  <strong style="font-size:0.9rem;">دفعة بدء العمل وحجز النطاق</strong>
+                  <span style="color:var(--success); font-size:0.8rem; font-weight:700;">مكتملة</span>
+                </div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">دُفعت في: 15-05-2026</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-weight:800; font-size:1.1rem; color:var(--text-primary)">2,500$</span>
+                  <span style="font-size:0.75rem; color:var(--success); font-weight:600; display:flex; align-items:center; gap:4px;">
+                    <i data-lucide="check" style="width:12px; height:12px;"></i> مدفوعة رقمياً
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: Developer Workspace -->
+      <section class="page-view" id="developer-workspace">
+        <div class="page-title-section" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h1>مساحة عمل المطورين</h1>
+            <p>لوحات Kanban التفاعلية المتكاملة مع مستودعات GitHub لمراقبة الأكواد وسحب طلبات الدمج.</p>
+          </div>
+          <button id="open-add-task-btn" class="btn btn-primary">
+            <i data-lucide="plus-circle"></i>
+            <span>إضافة مهمة جديدة</span>
+          </button>
+        </div>
+
+        <div class="developer-workspace-layout">
+          <!-- Kanban Board Column -->
+          <div>
+            <div class="kanban-board">
+              <!-- Column 1: Backlog -->
+              <div class="kanban-column" id="col-backlog">
+                <div class="kanban-column-header">
+                  <div class="kanban-column-title">
+                    <span style="width:8px; height:8px; background:var(--text-muted); border-radius:50%"></span>
+                    <span>قيد التخطيط</span>
+                  </div>
+                  <span class="kanban-count">2</span>
+                </div>
+                <div class="kanban-cards-container" id="kanban-todo-container">
+                  <div class="kanban-card" draggable="true">
+                    <h6>تصميم واجهات لوحة التحكم بالسمة الداكنة</h6>
+                    <div class="kanban-card-meta">
+                      <span class="github-badge pr">
+                        <i data-lucide="git-pull-request" style="width:10px; height:10px;"></i>
+                        <span>PR #24</span>
+                      </span>
+                      <span style="font-size:0.65rem;">خالد</span>
+                    </div>
+                  </div>
+
+                  <div class="kanban-card" draggable="true">
+                    <h6>تكامل بوابات دفع الفواتير لـ Stripe</h6>
+                    <div class="kanban-card-meta">
+                      <span class="github-badge">
+                        <i data-lucide="issue-opened" style="width:10px; height:10px;"></i>
+                        <span>Issue #19</span>
+                      </span>
+                      <span style="font-size:0.65rem;">سارة</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 2: In Progress -->
+              <div class="kanban-column" id="col-progress">
+                <div class="kanban-column-header">
+                  <div class="kanban-column-title">
+                    <span style="width:8px; height:8px; background:var(--accent); border-radius:50%"></span>
+                    <span>قيد العمل</span>
+                  </div>
+                  <span class="kanban-count">1</span>
+                </div>
+                <div class="kanban-cards-container">
+                  <div class="kanban-card" draggable="true">
+                    <h6>تطبيق إشعارات التنبيه في تطبيق فلاتر</h6>
+                    <div class="kanban-card-meta">
+                      <span class="github-badge commit">
+                        <i data-lucide="git-commit" style="width:10px; height:10px;"></i>
+                        <span>SHA: 4fa90</span>
+                      </span>
+                      <span style="font-size:0.65rem;">أحمد</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 3: Code Review -->
+              <div class="kanban-column" id="col-review">
+                <div class="kanban-column-header">
+                  <div class="kanban-column-title">
+                    <span style="width:8px; height:8px; background:var(--warning); border-radius:50%"></span>
+                    <span>مراجعة الكود</span>
+                  </div>
+                  <span class="kanban-count">1</span>
+                </div>
+                <div class="kanban-cards-container">
+                  <div class="kanban-card" draggable="true">
+                    <h6>بناء نموذج الذكاء الاصطناعي للتنبؤ المالي</h6>
+                    <div class="kanban-card-meta">
+                      <span class="github-badge pr">
+                        <i data-lucide="git-pull-request" style="width:10px; height:10px;"></i>
+                        <span>PR #22</span>
+                      </span>
+                      <span style="font-size:0.65rem;">فيصل</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 4: Done -->
+              <div class="kanban-column" id="col-done">
+                <div class="kanban-column-header">
+                  <div class="kanban-column-title">
+                    <span style="width:8px; height:8px; background:var(--success); border-radius:50%"></span>
+                    <span>مكتمل</span>
+                  </div>
+                  <span class="kanban-count">1</span>
+                </div>
+                <div class="kanban-cards-container">
+                  <div class="kanban-card" draggable="true">
+                    <h6>إعداد السيرفر ورفع الكود المبدئي Laravel</h6>
+                    <div class="kanban-card-meta">
+                      <span class="github-badge commit" style="background:rgba(16,185,129,0.1); color:var(--success); border-color:rgba(16,185,129,0.2)">
+                        <i data-lucide="check" style="width:10px; height:10px;"></i>
+                        <span>مغلق</span>
+                      </span>
+                      <span style="font-size:0.65rem;">سارة</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px; display:flex; align-items:center; gap:6px;">
+              <i data-lucide="info" style="width:14px; height:14px;"></i>
+              تنويه: يمكنك سحب وإلقاء بطاقات المهام (Drag & Drop) بين الأعمدة لتحديث حالتها تلقائياً.
+            </p>
+          </div>
+
+          <!-- GitHub Live Feed Stream -->
+          <div class="github-activity-feed glass">
+            <h3 style="font-size:1.1rem; font-weight:700; display:flex; align-items:center; gap:8px;">
+              <i data-lucide="github" style="color:var(--text-primary)"></i>
+              تكامل GitHub المباشر
+            </h3>
+            <div class="github-activity-list">
+              <div class="github-activity-item">
+                <div class="github-activity-icon"><i data-lucide="git-commit"></i></div>
+                <div class="github-activity-info">
+                  <p><strong>أحمد العتيبي</strong> تم دفع كود جديد في <code>main.dart</code></p>
+                  <span>SHA: f3e90a • منذ 5 د</span>
+                </div>
+              </div>
+
+              <div class="github-activity-item">
+                <div class="github-activity-icon"><i data-lucide="git-pull-request"></i></div>
+                <div class="github-activity-info">
+                  <p><strong>سارة الأحمد</strong> فتحت PR #24 في مستودع الوكالة</p>
+                  <span>مراجعة الكود • منذ 15 د</span>
+                </div>
+              </div>
+
+              <div class="github-activity-item">
+                <div class="github-activity-icon"><i data-lucide="message-square"></i></div>
+                <div class="github-activity-info">
+                  <p><strong>فيصل خالد</strong> وافق على تعليق المراجعة لـ PR #22</p>
+                  <span>تعليق • منذ ساعة واحدة</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: Finance & Resources -->
+      <section class="page-view" id="finance-resources">
+        <div class="page-title-section">
+          <h1>المالية وإدارة الموارد والتحليل</h1>
+          <p>التنبؤ الذكي بمخاطر تأخير المشاريع، تحليل تكاليف الإنتاج، وتوقيع العقود الرقمية للعمليات.</p>
+        </div>
+
+        <div class="finance-dashboard-grid">
+          <!-- Delay forecasting & Cost Analysis -->
+          <div>
+            <!-- Delay warning Widget -->
+            <div id="risk-card" class="risk-alert-card glass critical" style="margin-bottom:30px;">
+              <h3 style="font-size:1.15rem; font-weight:700; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="alert-triangle" style="color:var(--danger)"></i>
+                التنبؤ بمخاطر تأخر تسليم المشروع (AI Prediction)
+              </h3>
+              <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:5px;">
+                استخدم شريط المحاكاة أدناه لتجربة السيناريوهات المختلفة وملاحظة تحديثات الذكاء الاصطناعي فوراً.
+              </p>
+              
+              <div class="risk-gauge-container">
+                <span id="risk-label-text" style="font-size:0.8rem; font-weight:700; color:var(--text-primary);">خطر حرج للتأخير (مخاطرة)</span>
+                <div class="risk-level-bar">
+                  <div id="risk-fill-bar" class="risk-level-fill"></div>
+                </div>
+                <strong id="risk-percent-text" style="font-size:1.1rem; color:var(--danger); width:50px; text-align:left;">75%</strong>
+              </div>
+
+              <div>
+                <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">محاكاة نسبة استهلاك طاقة الموظفين وضغط المهام:</label>
+                <input type="range" id="risk-simulator-slider" class="risk-slider-input" min="10" max="100" value="75">
+              </div>
+            </div>
+
+            <!-- Cost Analysis SVG Chart -->
+            <div class="roadmap-card glass">
+              <h3 style="font-size:1.15rem; font-weight:700; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="trending-up" style="color:var(--accent)"></i>
+                تحليل التكلفة والميزانية الفعلية للمشاريع
+              </h3>
+              
+              <div class="svg-chart-container">
+                <svg viewBox="0 0 400 200" style="width:100%; height:100%;">
+                  <line x1="40" y1="20" x2="380" y2="20" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                  <line x1="40" y1="70" x2="380" y2="70" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                  <line x1="40" y1="120" x2="380" y2="120" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                  <line x1="40" y1="170" x2="380" y2="170" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                  
+                  <text x="35" y="24" fill="var(--text-muted)" font-size="9" text-anchor="end">4,000$</text>
+                  <text x="35" y="74" fill="var(--text-muted)" font-size="9" text-anchor="end">2,500$</text>
+                  <text x="35" y="124" fill="var(--text-muted)" font-size="9" text-anchor="end">1,000$</text>
+                  <text x="35" y="174" fill="var(--text-muted)" font-size="9" text-anchor="end">0$</text>
+                  
+                  <text x="70" y="188" fill="var(--text-muted)" font-size="9" text-anchor="middle">مايو</text>
+                  <text x="170" y="188" fill="var(--text-muted)" font-size="9" text-anchor="middle">يونيو</text>
+                  <text x="270" y="188" fill="var(--text-muted)" font-size="9" text-anchor="middle">يوليو</text>
+                  <text x="350" y="188" fill="var(--text-muted)" font-size="9" text-anchor="middle">أغسطس</text>
+                  
+                  <path d="M70,170 L70,130 L170,100 L270,70 L350,40 L350,170 Z" fill="rgba(139,92,246,0.12)" />
+                  <path d="M70,130 L170,100 L270,70 L350,40" fill="none" stroke="var(--primary)" stroke-width="3" />
+                  
+                  <path d="M70,140 L170,115 L270,95 L350,55" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="4,4" />
+                  
+                  <circle cx="270" cy="70" r="4" fill="var(--primary)" />
+                  <circle cx="270" cy="95" r="4" fill="var(--accent)" />
+                </svg>
+              </div>
+              <div style="display:flex; gap:20px; justify-content:center; font-size:0.8rem; margin-top:10px;">
+                <span style="display:flex; align-items:center; gap:6px;">
+                  <span style="width:12px; height:3px; background:var(--primary); display:inline-block"></span>
+                  الميزانية المقدرة
+                </span>
+                <span style="display:flex; align-items:center; gap:6px;">
+                  <span style="width:12px; height:3px; background:var(--accent); border-top:1px dashed var(--accent); display:inline-block"></span>
+                  التكلفة الفعلية المستهلكة
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digital Contract Signing Widget -->
+          <div class="signature-card glass">
+            <h3 style="font-size:1.15rem; font-weight:700; display:flex; align-items:center; gap:8px;">
+              <i data-lucide="pen-tool" style="color:var(--primary)"></i>
+              التوقيع الرقمي واعتماد العقد
+            </h3>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:5px;">
+              وقّع داخل الصندوق أدناه بالماوس أو الإصبع للمصادقة الإلكترونية وحفظ العقد بصيغة PDF.
+            </p>
+            
+            <div class="signature-pad-container">
+              <canvas id="signature-canvas" class="signature-canvas"></canvas>
+              <button id="clear-sig-btn" class="canvas-clear-btn">مسح</button>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:0.75rem; color:var(--text-muted); line-height:1.4">
+                * عند اعتماد العقد، يتم تضمين معرف تشفير hash فريد وربطه بالـ API لضمان الأمان والخصوصية القانونية.
+              </div>
+              <button id="sign-contract-btn" class="btn btn-primary" style="margin-top:10px;">
+                <i data-lucide="check-square"></i>
+                اعتماد العقد وحفظ التوقيع
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: AI Assistance -->
+      <section class="page-view" id="ai-assistance">
+        <div class="page-title-section">
+          <h1>مساعد الذكاء الاصطناعي للمشاريع</h1>
+          <p>تخطيط مسارات العمل الذكية، جدولة دورات المهام، وتوزيع العمل على المطورين تلقائياً.</p>
+        </div>
+
+        <div class="ai-assistant-layout">
+          <!-- Chat interface -->
+          <div class="chat-portal glass">
+            <div class="chat-history" id="chat-history">
+              <div class="chat-message assistant">
+                <div class="chat-message-avatar"><i data-lucide="bot"></i></div>
+                <div class="chat-message-bubble">
+                  أهلاً بك في ذكاء الوكالة الاصطناعي. يمكنني مساعدتك في تخطيط مسار عمل للمشروع، وتحليل أكواد GitHub، وتوليد مهام تلقائية وتوزيعها على الفريق بناءً على القدرة الاستيعابية.
+                </div>
+              </div>
+            </div>
+            
+            <div class="chat-input-bar">
+              <input type="text" id="chat-input" placeholder="اكتب سؤالك هنا بخصوص خطة المشروع وتوزيع المهام...">
+              <button id="chat-send-btn" class="btn btn-primary btn-icon"><i data-lucide="send" style="transform: rotate(180deg)"></i></button>
+            </div>
+          </div>
+
+          <!-- Pre-made recommendations/Prompt pills -->
+          <div class="ai-suggestions-panel glass">
+            <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:20px; display:flex; align-items:center; gap:8px;">
+              <i data-lucide="sparkles" style="color:var(--accent)"></i>
+              موجهات وتوصيات ذكية
+            </h3>
+            
+            <button class="suggestion-prompt-btn" data-prompt="خطط مسار العمل لمشروع إياد ووزع المهام على الفريق.">
+              <span>توزيع المهام تلقائياً لمشروع إياد</span>
+              <i data-lucide="arrow-left" style="width:16px; height:16px; color:var(--accent)"></i>
+            </button>
+
+            <button class="suggestion-prompt-btn" data-prompt="توقع فترات التأخير للمشروع بناءً على مراجعات الكود.">
+              <span>تنبؤ بمخاطر تأخير التسليم</span>
+              <i data-lucide="arrow-left" style="width:16px; height:16px; color:var(--accent)"></i>
+            </button>
+
+            <button class="suggestion-prompt-btn" data-prompt="توليد مقترح تسعير أوتوماتيكي بناءً على المخرجات.">
+              <span>حساب تكاليف المشاريع البرمجية</span>
+              <i data-lucide="arrow-left" style="width:16px; height:16px; color:var(--accent)"></i>
+            </button>
+
+            <!-- New suggestion prompt button (AI Changelog generator link) -->
+            <button class="suggestion-prompt-btn" data-prompt="توليد سجل التحديثات (Changelog) تلقائياً للمشروع بناءً على المهام المكتملة.">
+              <span>توليد سجل التحديثات للمشروع</span>
+              <i data-lucide="arrow-left" style="width:16px; height:16px; color:var(--accent)"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Dynamic Modal 1: Desktop Invoice Payment -->
+  <div class="web-modal-overlay" id="web-payment-modal">
+    <div class="web-modal-content glass">
+      <div class="web-modal-header">
+        <h3 style="font-weight:700;">سداد الفاتورة إلكترونياً (Stripe Checkout)</h3>
+        <button id="close-web-payment-btn" class="web-modal-close-btn"><i data-lucide="x" style="width:20px; height:20px;"></i></button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px;">الدفعة الثالثة (النشر النهائي) - القيمة المستحقة: <strong>3,500$</strong></p>
+      
+      <div>
+        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">رقم البطاقة الائتمانية</label>
+        <input type="text" class="web-input-field" value="4000 1234 5678 9010" disabled>
+        
+        <div style="display:flex; gap:15px;">
+          <div style="flex:1;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">تاريخ الانتهاء</label>
+            <input type="text" class="web-input-field" value="12/28" disabled>
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">رمز التحقق CVC</label>
+            <input type="text" class="web-input-field" value="***" disabled>
+          </div>
+        </div>
+      </div>
+
+      <button id="submit-web-payment" class="btn btn-primary" style="width:100%; margin-top:15px;">سداد الفاتورة إلكترونياً</button>
+    </div>
+  </div>
+
+  <!-- Dynamic Modal 2: Desktop Add Task to Kanban -->
+  <div class="web-modal-overlay" id="web-add-task-modal">
+    <div class="web-modal-content glass">
+      <div class="web-modal-header">
+        <h3 style="font-weight:700;">إدراج مهمة عمل جديدة</h3>
+        <button id="close-add-task-btn" class="web-modal-close-btn"><i data-lucide="x" style="width:20px; height:20px;"></i></button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px;">سيتم إضافة هذه المهمة مباشرة إلى عمود "قيد التخطيط" في لوحة Kanban.</p>
+
+      <div>
+        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">عنوان المهمة البرمجية</label>
+        <input type="text" id="task-title-input" class="web-input-field" placeholder="مثال: إصلاح ثغرة تسجيل الدخول للمستخدمين">
+
+        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">إسناد المهمة إلى المطور</label>
+        <select id="task-assignee-input" class="web-input-field" style="background:#1e293b;">
+          <option value="أحمد">أحمد العتيبي</option>
+          <option value="سارة">سارة الأحمد</option>
+          <option value="فيصل">فيصل خالد</option>
+          <option value="خالد">خالد العمران</option>
+        </select>
+      </div>
+
+      <button id="submit-new-task" class="btn btn-primary" style="width:100%; margin-top:15px;">إضافة المهمة للوحة العمل</button>
+    </div>
+  </div>
+
+  <!-- Floating Navigation Hub Link -->
+  <a href="index.html" class="hub-back-btn">
+    <i data-lucide="home"></i>
+    <span>الرجوع إلى البوابة الرئيسية</span>
+  </a>
+
+  <!-- Initialize icons & load code -->
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="js/web.js"></script>
+</body>
+</html>

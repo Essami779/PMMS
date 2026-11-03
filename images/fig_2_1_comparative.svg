@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="100%" height="100%" style="background-color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; direction: rtl;">
+    <defs>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+            <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+        </filter>
+        <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e3a8a" />
+            <stop offset="100%" stop-color="#2563eb" />
+        </linearGradient>
+        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#047857" />
+            <stop offset="100%" stop-color="#10b981" />
+        </linearGradient>
+        <linearGradient id="warnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b91c1c" />
+            <stop offset="100%" stop-color="#ef4444" />
+        </linearGradient>
+        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6b21a8" />
+            <stop offset="100%" stop-color="#9333ea" />
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+        </marker>
+    </defs>
+    
+    <!-- Title Bar -->
+    <rect x="0" y="0" width="1200" height="60" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="600" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">الشكل (2-1): مخطط الدراسة المقارنة وتحليل الفجوة البحثية</text>
+    
+    
+    <rect x="700" y="100" width="450" height="350" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" rx="10" filter="url(#shadow)"/>
+    <rect x="700" y="100" width="450" height="50" fill="#334155" rx="10"/>
+    <text x="925" y="132" fill="#ffffff" font-weight="bold" font-size="16" text-anchor="middle">الأنظمة الحالية المشابهة (Existing Systems)</text>
+    
+    <rect x="720" y="170" width="410" height="60" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+    <text x="925" y="195" font-weight="bold" font-size="14" fill="#b91c1c" text-anchor="middle">Productive.io</text>
+    <text x="925" y="215" font-size="12" fill="#64748b" text-anchor="middle">منصة سحابية تفتقر للمزامنة المحلية والذكاء الاصطناعي أوفلاين</text>
+
+    <rect x="720" y="245" width="410" height="60" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+    <text x="925" y="270" font-weight="bold" font-size="14" fill="#b91c1c" text-anchor="middle">Teamwork</text>
+    <text x="925" y="290" font-size="12" fill="#64748b" text-anchor="middle">تفتقر لبوابات الخبراء والتوظيف وتتبع عهد الأجهزة ومحلل الإرهاق</text>
+
+    <rect x="720" y="320" width="410" height="60" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+    <text x="925" y="345" font-weight="bold" font-size="14" fill="#b91c1c" text-anchor="middle">Monday.com</text>
+    <text x="925" y="365" font-size="12" fill="#64748b" text-anchor="middle">ارتفاع التكاليف ومخاوف تسريب الأكواد عبر السحابة الخارجية</text>
+
+    <path d="M 700 275 L 620 275" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="420" y="180" width="190" height="190" fill="#fff1f2" stroke="#e11d48" stroke-width="3" rx="15" filter="url(#shadow)"/>
+    <text x="515" y="230" font-weight="bold" font-size="16" fill="#9f1239" text-anchor="middle">الفجوة البحثية</text>
+    <text x="515" y="255" font-weight="bold" font-size="14" fill="#be123c" text-anchor="middle">(Research Gap)</text>
+    <text x="515" y="290" font-size="12" fill="#881337" text-anchor="middle">الحاجة لنظام يجمع بين:</text>
+    <text x="515" y="310" font-size="12" font-weight="bold" fill="#be123c" text-anchor="middle">Offline-First + Local AI</text>
+    <text x="515" y="330" font-size="12" fill="#881337" text-anchor="middle">+ تقاسم الأرباح والعهد</text>
+
+    <path d="M 420 275 L 340 275" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="50" y="100" width="280" height="350" fill="#f0fdf4" stroke="#16a34a" stroke-width="3" rx="10" filter="url(#shadow)"/>
+    <rect x="50" y="100" width="280" height="50" fill="#15803d" rx="10"/>
+    <text x="190" y="132" fill="#ffffff" font-weight="bold" font-size="16" text-anchor="middle">النظام المقترح للبحث</text>
+    <text x="190" y="190" font-weight="bold" font-size="15" fill="#14532d" text-anchor="middle">نظام إدارة ومتابعة المشاريع</text>
+    <text x="190" y="215" font-size="13" font-weight="600" fill="#16a34a" text-anchor="middle">(PMTS Platform)</text>
+
+    <text x="190" y="260" font-size="13" fill="#166534" text-anchor="middle">✔ معمارية أوفلاين Offline-First</text>
+    <text x="190" y="290" font-size="13" fill="#166534" text-anchor="middle">✔ ذكاء اصطناعي محلي Ollama</text>
+    <text x="190" y="320" font-size="13" fill="#166534" text-anchor="middle">✔ 5 بوابات متخصصة للأصناف</text>
+    <text x="190" y="350" font-size="13" fill="#166534" text-anchor="middle">✔ أتمتة تقاسم الأرباح والعهد</text>
+    <text x="190" y="380" font-size="13" fill="#166534" text-anchor="middle">✔ حماية الأكواد 100% محلياً</text>
+
+</svg>

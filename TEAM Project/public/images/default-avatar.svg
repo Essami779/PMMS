@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="avatar-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#e2e8f0" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="64" fill="url(#avatar-grad)" />
+  <!-- Head -->
+  <circle cx="64" cy="46" r="23" fill="url(#body-grad)" />
+  <!-- Body/Shoulders -->
+  <path d="M64,75 C42,75 22,88 16,112 C29,122 46,128 64,128 C82,128 99,122 112,112 C106,88 86,75 64,75 Z" fill="url(#body-grad)" />
+</svg>

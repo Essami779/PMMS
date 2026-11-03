@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="100%" height="100%" style="background-color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; direction: rtl;">
+    <defs>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+            <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+        </filter>
+        <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e3a8a" />
+            <stop offset="100%" stop-color="#2563eb" />
+        </linearGradient>
+        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#047857" />
+            <stop offset="100%" stop-color="#10b981" />
+        </linearGradient>
+        <linearGradient id="warnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b91c1c" />
+            <stop offset="100%" stop-color="#ef4444" />
+        </linearGradient>
+        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6b21a8" />
+            <stop offset="100%" stop-color="#9333ea" />
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+        </marker>
+    </defs>
+    
+    <!-- Title Bar -->
+    <rect x="0" y="0" width="1200" height="60" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="600" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">الشكل (5-1): مخطط الهيكلية المعمارية الأكاديمي للنظام</text>
+    
+    
+    <!-- Layer 1: Presentation -->
+    <rect x="100" y="80" width="1000" height="80" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="8" filter="url(#shadow)"/>
+    <text x="1050" y="125" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="end">طبقة العرض والواجهات (Presentation Layer)</text>
+    <rect x="150" y="100" width="300" height="40" fill="#ffffff" stroke="#2563eb" rx="5"/>
+    <text x="300" y="125" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">منصة الويب Laravel / Vue.js</text>
+    <rect x="500" y="100" width="300" height="40" fill="#ffffff" stroke="#2563eb" rx="5"/>
+    <text x="650" y="125" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">تطبيق الموبايل Flutter SDK</text>
+
+    <!-- Layer 2: Business Logic -->
+    <rect x="100" y="180" width="1000" height="80" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="8" filter="url(#shadow)"/>
+    <text x="1050" y="225" font-size="15" font-weight="bold" fill="#14532d" text-anchor="end">طبقة خدمات منطق الأعمال (Logic Layer)</text>
+    <rect x="150" y="200" width="250" height="40" fill="#ffffff" stroke="#16a34a" rx="5"/>
+    <text x="275" y="225" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">Laravel REST API &amp; RBAC</text>
+    <rect x="440" y="200" width="250" height="40" fill="#ffffff" stroke="#16a34a" rx="5"/>
+    <text x="565" y="225" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">Sync Queue &amp; CRDT</text>
+    <rect x="710" y="200" width="250" height="40" fill="#ffffff" stroke="#16a34a" rx="5"/>
+    <text x="835" y="225" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">محرك الأرباح والفواتير</text>
+
+    <!-- Layer 3: Local AI Layer -->
+    <rect x="100" y="280" width="1000" height="80" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" rx="8" filter="url(#shadow)"/>
+    <text x="1050" y="325" font-size="15" font-weight="bold" fill="#581c87" text-anchor="end">طبقة الذكاء الاصطناعي المحلي (Local AI Layer)</text>
+    <rect x="250" y="300" width="300" height="40" fill="#ffffff" stroke="#7e22ce" rx="5"/>
+    <text x="400" y="325" font-size="13" font-weight="bold" fill="#6b21a8" text-anchor="middle">محرك Ollama المحلي (CodeLlama)</text>
+    <rect x="600" y="300" width="300" height="40" fill="#ffffff" stroke="#7e22ce" rx="5"/>
+    <text x="750" y="325" font-size="13" font-weight="bold" fill="#6b21a8" text-anchor="middle">وحدة فحص جودة الأكواد والأمان</text>
+
+    <!-- Layer 4: Persistence -->
+    <rect x="100" y="380" width="1000" height="80" fill="#fff7ed" stroke="#ea580c" stroke-width="2" rx="8" filter="url(#shadow)"/>
+    <text x="1050" y="425" font-size="15" font-weight="bold" fill="#7c2d12" text-anchor="end">طبقة قواعد البيانات والتخزين (Persistence Layer)</text>
+    <rect x="250" y="400" width="300" height="40" fill="#ffffff" stroke="#ea580c" rx="5"/>
+    <text x="400" y="425" font-size="13" font-weight="bold" fill="#c2410c" text-anchor="middle">التخزين المحلي SQLite / Hive</text>
+    <rect x="600" y="400" width="300" height="40" fill="#ffffff" stroke="#ea580c" rx="5"/>
+    <text x="750" y="425" font-size="13" font-weight="bold" fill="#c2410c" text-anchor="middle">قاعدة السيرفر PostgreSQL</text>
+
+</svg>
