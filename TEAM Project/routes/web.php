@@ -24,6 +24,11 @@ Route::get('/teams', [FrontendController::class, 'teams'])->name('teams.index');
 Route::get('/companies', [FrontendController::class, 'companies'])->name('companies.index');
 Route::get('/consultants', [FrontendController::class, 'consultants'])->name('consultants.index');
 
+// استعراض تفاصيل وميزات المسارات في الواجهات الأمامية (Public Track Overviews & Features)
+Route::get('/tracks/teams', [FrontendController::class, 'trackTeams'])->name('tracks.teams');
+Route::get('/tracks/companies', [FrontendController::class, 'trackCompanies'])->name('tracks.companies');
+Route::get('/tracks/consultants', [FrontendController::class, 'trackConsultants'])->name('tracks.consultants');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // 1. Dashboard (لوحة التحكم الرئيسية)
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -445,6 +445,32 @@
                             <span class="text-base">👨‍🏫</span>
                             <span>دليل المستشارين والخبراء</span>
                         </a>
+
+                        <!-- شرح تفاصيل وميزات المسارات في الواجهات الأمامية -->
+                        <div x-data="{ tracksMenuOpen: {{ request()->routeIs('tracks.*') ? 'true' : 'false' }} }" class="space-y-0.5 pt-1">
+                            <button type="button" @click="tracksMenuOpen = !tracksMenuOpen"
+                                class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl transition text-xs font-semibold {{ request()->routeIs('tracks.*') ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
+                                <div class="flex items-center space-x-3 space-x-reverse">
+                                    <span class="text-base">✨</span>
+                                    <span>شرح ميزات المسارات</span>
+                                </div>
+                                <svg class="w-3.5 h-3.5 transition-transform duration-200 text-slate-400" :class="tracksMenuOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div x-show="tracksMenuOpen" x-collapse class="pr-6 pl-2 pt-1 pb-1 space-y-1">
+                                <a href="{{ route('tracks.teams') }}" class="flex items-center space-x-2 space-x-reverse px-3 py-1.5 rounded-lg text-[11px] {{ request()->routeIs('tracks.teams') ? 'text-indigo-600 dark:text-indigo-400 font-black bg-indigo-50/60 dark:bg-indigo-950/40' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white' }}">
+                                    <span>🚀</span>
+                                    <span>ميزات مسار الفرق</span>
+                                </a>
+                                <a href="{{ route('tracks.companies') }}" class="flex items-center space-x-2 space-x-reverse px-3 py-1.5 rounded-lg text-[11px] {{ request()->routeIs('tracks.companies') ? 'text-amber-600 dark:text-amber-400 font-black bg-amber-50/60 dark:bg-amber-950/40' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white' }}">
+                                    <span>🏢</span>
+                                    <span>ميزات مسار الشركات</span>
+                                </a>
+                                <a href="{{ route('tracks.consultants') }}" class="flex items-center space-x-2 space-x-reverse px-3 py-1.5 rounded-lg text-[11px] {{ request()->routeIs('tracks.consultants') ? 'text-emerald-600 dark:text-emerald-400 font-black bg-emerald-50/60 dark:bg-emerald-950/40' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white' }}">
+                                    <span>👨‍🏫</span>
+                                    <span>ميزات مسار المستشارين</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

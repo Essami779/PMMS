@@ -378,12 +378,12 @@
                 <div class="group relative overflow-hidden rounded-3xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 p-8 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
                     <div>
                         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white mb-6 shadow-lg shadow-indigo-500/25 group-hover:scale-110 transition-transform">
-                            <span class="text-3xl">🎓</span>
+                            <span class="text-3xl">🚀</span>
                         </div>
-                        <span class="text-xs font-black px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">مسار الفرق ومشاريع التخرج</span>
+                        <span class="text-xs font-black px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">مسار الفرق والمشاريع التقنية</span>
                         <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-3 mb-3 font-readex">بناء الفريق وإطلاق الابتكار</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6">
-                            نظام متكامل لتكوين فرق العمل الطلابية، استقطاب أصحاب المهارات الناقصة، وإدارة متطلبات المشروع حتى العرض النهائي.
+                            نظام متكامل لتكوين فرق العمل، استقطاب أصحاب المهارات الناقصة، وإدارة متطلبات المشروع حتى التسليم النهائي.
                         </p>
                         <ul class="space-y-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 mb-8">
                             <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> استكمال أعضاء الفريق حسب التخصص</li>
@@ -391,9 +391,14 @@
                             <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> حجز جلسات مراجعة كود ومعمارية مع الخبراء</li>
                         </ul>
                     </div>
-                    <a href="{{ route('teams.index') }}" class="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs text-center shadow-md shadow-indigo-500/20 hover:scale-102 transition-all block">
-                        استعراض دليل الفرق والمشاريع ←
-                    </a>
+                    <div class="space-y-2.5">
+                        <a href="{{ route('tracks.teams') }}" class="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs text-center shadow-md shadow-indigo-500/20 hover:scale-[1.02] transition-all block cursor-pointer">
+                            استعراض تفاصيل وميزات المسار ←
+                        </a>
+                        <a href="{{ route('teams.index') }}" class="block text-center text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 py-0.5 transition">
+                            أو تصفح دليل المشاريع النشطة ↗
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Track 2: Companies -->
@@ -408,7 +413,7 @@
                         <span class="text-xs font-black px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">مسار قطاع الأعمال والشركات</span>
                         <h3 class="text-2xl font-black text-slate-900 dark:text-white mt-3 mb-3 font-readex">رعاية المشاريع واستقطاب النخب</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6">
-                            فرصة ذهبية للشركات لتبني مشاريع التخرج الواعدة، وتقديم تحديات أعمال حقيقية للفرق الطلابية لحلها.
+                            فرصة ذهبية للشركات لتبني المشاريع الواعدة، استقطاب الكفاءات، وتقديم تحديات أعمال حقيقية للفرق لحلها.
                         </p>
                         <ul class="space-y-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 mb-8">
                             <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> دليل المشاريع المصنفة حسب قطاع العمل</li>
@@ -416,9 +421,14 @@
                             <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> دعم المسؤولية الاجتماعية للشركات CSR</li>
                         </ul>
                     </div>
-                    <a href="{{ route('companies.index') }}" class="w-full py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs text-center shadow-md shadow-amber-500/20 hover:scale-102 transition-all block">
-                        استعراض دليل الشركات والفرص ←
-                    </a>
+                    <div class="space-y-2.5">
+                        <a href="{{ route('tracks.companies') }}" class="w-full py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs text-center shadow-md shadow-amber-500/20 hover:scale-[1.02] transition-all block cursor-pointer">
+                            استعراض تفاصيل وميزات المسار ←
+                        </a>
+                        <a href="{{ route('companies.index') }}" class="block text-center text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 py-0.5 transition">
+                            أو تصفح دليل الشركات والفرص ↗
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Track 3: Consultants -->
@@ -438,9 +448,14 @@
                             <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> سجل موثق لساعات الاستشارة والأثر</li>
                         </ul>
                     </div>
-                    <a href="{{ route('consultants.index') }}" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center shadow-md shadow-emerald-500/20 hover:scale-102 transition-all block">
-                        تصفح دليل المستشارين والخبراء ←
-                    </a>
+                    <div class="space-y-2.5">
+                        <a href="{{ route('tracks.consultants') }}" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center shadow-md shadow-emerald-500/20 hover:scale-[1.02] transition-all block cursor-pointer">
+                            استعراض تفاصيل وميزات المسار ←
+                        </a>
+                        <a href="{{ route('consultants.index') }}" class="block text-center text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 py-0.5 transition">
+                            أو تصفح دليل المستشارين والخبراء ↗
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

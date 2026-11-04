@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('title', 'دليل الفرق والمشاريع التقنية والريادية - منصة TEAM Hub')
 
