@@ -17,7 +17,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', config('app.name', 'منصة TEAM Hub'))</title>
+    <title>@yield('title', config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS'))</title>
 
     <!-- Google Fonts: Cairo, Readex Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,10 +113,10 @@
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white">TEAM<span class="text-indigo-600 dark:text-indigo-400">.</span>HUB</span>
+                            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white">PMMS<span class="text-indigo-600 dark:text-indigo-400">.</span></span>
                             <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 hidden sm:inline-block">المنظومة الوطنية</span>
                         </div>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold hidden sm:block">ملتقى المشاريع التقنية، الاستثمار، والاستشارات</p>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold hidden sm:block">نظام إدارة ومتابعة المشاريع</p>
                     </div>
                 </a>
 
@@ -220,15 +220,15 @@
                 <div>
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-amber-400 flex items-center justify-center text-white font-black text-lg">
-                            T
+                            P
                         </div>
-                        <span class="text-xl font-black text-slate-900 dark:text-white">TEAM<span class="text-indigo-500">.</span>HUB</span>
+                        <span class="text-xl font-black text-slate-900 dark:text-white">PMMS<span class="text-indigo-500">.</span></span>
                     </div>
                     <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-4">
-                        المنصة الوطنية المتكاملة لإدارة ومتابعة الفرق والمشاريع التقنية، ربط الابتكارات بقطاع الأعمال، وتوجيه النخب.
+                        نظام إدارة ومتابعة المشاريع PMMS لإدارة ومتابعة الفرق والمشاريع التقنية، ربط الابتكارات بقطاع الأعمال، وتوجيه النخب.
                     </p>
                     <div class="text-[11px] text-slate-400 font-bold">
-                        منظومة TEAM Hub © {{ date('Y') }} — جميع الحقوق محفوظة
+                        نظام إدارة ومتابعة المشاريع PMMS © {{ date('Y') }} — جميع الحقوق محفوظة
                     </div>
                 </div>
 

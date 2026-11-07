@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>تسجيل الدخول - {{ config('app.name', 'لوحة التحكم الذكية') }}</title>
+    <title>تسجيل الدخول - {{ config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -847,12 +847,12 @@
             <div>
                 <div class="side-pill-badge">
                     <span class="status-dot"></span>
-                    <span>لوحة التحكم والأنظمة الذكية</span>
+                    <span>نظام إدارة ومتابعة المشاريع PMMS</span>
                 </div>
 
                 <h1 class="side-hero-title">
-                    لوحة التحكم المركزية <br/>
-                    <span class="side-hero-title-highlight" id="typewriter-text">وإدارة المشاريع</span><span class="typewriter-cursor"></span>
+                    نظام إدارة ومتابعة المشاريع <br/>
+                    <span class="side-hero-title-highlight" id="typewriter-text">PMMS</span><span class="typewriter-cursor"></span>
                 </h1>
 
                 <p class="side-desc">

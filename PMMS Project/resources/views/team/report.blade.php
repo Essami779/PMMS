@@ -260,7 +260,7 @@
         </div>
 
         <div class="text-center pt-4 text-[10px] text-slate-400 border-t border-slate-100">
-            تم استخراج هذا التقرير آلياً عبر منصة TEAM Hub لإدارة ومتابعة الفرق والمشاريع - {{ date('Y') }}
+            تم استخراج هذا التقرير آلياً عبر نظام إدارة ومتابعة المشاريع PMMS - {{ date('Y') }}
         </div>
     </div>
 

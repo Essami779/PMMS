@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'مسار الخبراء والمستشارين والتحكيم الأكاديمي - منصة TEAM Hub')
+@section('title', 'مسار الخبراء والمستشارين والتحكيم الأكاديمي - نظام إدارة ومتابعة المشاريع PMMS')
 
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'مساحة عمل وإدارة الفريق والمشروع - منصة TEAM Hub')
+@section('title', 'مساحة عمل وإدارة الفريق والمشروع - نظام إدارة ومتابعة المشاريع PMMS')
 
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto pb-12" x-data="{

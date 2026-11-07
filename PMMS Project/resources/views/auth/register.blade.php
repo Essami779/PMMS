@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>إنشاء حساب وتحديد المسار - {{ config('app.name', 'منصة TEAM Hub') }}</title>
+    <title>إنشاء حساب وتحديد المسار - {{ config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -531,7 +531,7 @@
             </div>
 
             <div class="pt-6 border-t border-white/10 text-[11px] text-slate-400 flex items-center justify-between">
-                <span>منصة TEAM Hub &copy; {{ date('Y') }}</span>
+                <span>نظام إدارة ومتابعة المشاريع PMMS &copy; {{ date('Y') }}</span>
                 <span class="text-amber-400 font-bold">تشفير وأمان 100%</span>
             </div>
         </div>

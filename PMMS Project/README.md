@@ -1,8 +1,8 @@
-# منصة ومسرعة المشاريع والفرق التقنية والريادية (PMTS / TEAM Hub)
+# نظام إدارة ومتابعة المشاريع (PMMS - Project Management and Monitoring System)
 
 <p align="center">
   <a href="public/logos-showcase.html">
-    <img src="public/images/logos/concept1-synergy-light.svg" width="460" alt="PMTS TEAM Hub Logo">
+    <img src="public/images/logos/concept1-synergy-light.svg" width="460" alt="PMMS Logo">
   </a>
 </p>
 

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'منصة TEAM Hub') }}</title>
+        <title>{{ config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS') }}</title>
 
         <!-- Google Fonts: Cairo, Readex Pro -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        <span class="text-2xl font-black tracking-tight text-slate-900 dark:text-white font-readex">TEAM<span class="text-indigo-600 dark:text-indigo-400">.</span>HUB</span>
-                        <span class="text-[11px] block font-bold text-slate-500 dark:text-slate-400">المنظومة الوطنية الموحدة</span>
+                        <span class="text-2xl font-black tracking-tight text-slate-900 dark:text-white font-readex">PMMS<span class="text-indigo-600 dark:text-indigo-400">.</span></span>
+                        <span class="text-[11px] block font-bold text-slate-500 dark:text-slate-400">نظام إدارة ومتابعة المشاريع</span>
                     </div>
                 </a>
             </div>

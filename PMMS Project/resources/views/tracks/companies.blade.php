@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'مسار قطاع الأعمال والاستثمار والرعاية - منصة TEAM Hub')
+@section('title', 'مسار قطاع الأعمال والاستثمار والرعاية - نظام إدارة ومتابعة المشاريع PMMS')
 
 @section('content')
 

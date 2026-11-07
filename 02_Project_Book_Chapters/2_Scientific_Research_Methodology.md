@@ -2,7 +2,7 @@
 
 ## مشروع: نظام إدارة ومتابعة المشاريع
 
-### (Scientific Research Methodology Applied to Project Management and Tracking System)
+### (Scientific Research Methodology Applied to Project Management and Monitoring System - PMMS)
 
 * **الكلية والقسم:** كلية العلوم الإدارية - قسم نظم المعلومات الإدارية (MIS)
 * **المستوى الأكاديمي:** السنة الرابعة (مشروع التخرج)

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'لوحة التحكم الذكية') }}</title>
+    <title>{{ config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS') }}</title>
 
     <!-- Google Fonts: Cairo, Readex Pro, Alyamama, Tajawal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,10 +242,10 @@
                         </div>
                         <div class="overflow-hidden">
                             <h1 class="text-sm font-black text-slate-800 dark:text-slate-100 leading-tight truncate">
-                                {{ config('app.name', 'لوحة التحكم') }}
+                                {{ config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS') }}
                             </h1>
                             <p class="text-[11px] text-indigo-600 dark:text-indigo-400 font-bold">
-                                نظام الإدارة والتحكم
+                                نظام إدارة ومتابعة المشاريع (PMMS)
                             </p>
                         </div>
                     </div>
@@ -503,7 +503,7 @@
                         <div class="flex flex-col">
                             <div class="flex items-center gap-2">
                                 <h2 class="text-sm sm:text-base font-black text-slate-900 dark:text-white font-readex tracking-tight leading-tight">
-                                    {{ config('app.name', 'لوحة التحكم الذكية') }}
+                                    {{ config('app.name', 'نظام إدارة ومتابعة المشاريع PMMS') }}
                                 </h2>
                                 <span
                                     class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-black bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 shadow-2xs">
