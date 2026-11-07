@@ -1,8 +1,13 @@
-# لوحة التحكم والأنظمة الذكية (Laravel 12 Dashboard & Starter Kit)
+# منصة ومسرعة المشاريع والفرق التقنية والريادية (PMTS / TEAM Hub)
 
 <p align="center">
-  <img src="public/images/default-avatar.svg" width="80" alt="Logo">
+  <a href="public/logos-showcase.html">
+    <img src="public/images/logos/concept1-synergy-light.svg" width="460" alt="PMTS TEAM Hub Logo">
+  </a>
 </p>
+
+> **مشروع التخرج الأكاديمي:** قسم نظم المعلومات الإدارية (MIS) - جامعة الرازي (2026 / 2027م)  
+> **معرض الهوية والشعارات التفاعلي:** يمكن معاينة وتنزيل خيارات الشعارات الثلاثة عبر [`public/logos-showcase.html`](public/logos-showcase.html).
 
 لوحة تحكم احترافية وعصرية مبنية على **Laravel 12** و **TailwindCSS** و **Alpine.js** و **Chart.js**، مصممة لتكون قالب أساسي (Starter Kit) قابل لإعادة الاستخدام في بناء وتطوير أي مشاريع وأنظمة جديدة بسرعة وسهولة، مع الحفاظ على أعلى معايير الجمالية وتجربة المستخدم (UI/UX).
 

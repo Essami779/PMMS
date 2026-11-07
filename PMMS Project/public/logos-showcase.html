@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معرض الشعارات التفاعلي | PMTS - TEAM Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              synergy: '#4F46E5',
+              pulse: '#10B981',
+              shield: '#D97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+    }
+    .mockup-laptop {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen">
+
+  <!-- Header & Controls -->
+  <header class="sticky top-0 z-50 glass-card border-b border-slate-200 dark:border-slate-800 shadow-sm py-4 px-6 md:px-12 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md font-extrabold text-lg">
+        T
+      </div>
+      <div>
+        <h1 class="text-xl font-black text-slate-900 dark:text-white leading-tight">معرض الهوية البصرية والشعارات</h1>
+        <p class="text-xs text-slate-500 dark:text-slate-400">مشروع التخرج الأكاديمي: PMTS / TEAM Hub - جامعة الرازي (MIS)</p>
+      </div>
+    </div>
+
+    <!-- Mode Toggle & Navigation -->
+    <div class="flex items-center gap-3">
+      <button onclick="toggleDarkMode()" id="modeToggleBtn" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+        <span id="modeIcon">🌙</span>
+        <span id="modeText">الوضع الليلي</span>
+      </button>
+
+      <a href="#mockup-section" class="px-4 py-2 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md transition">
+        معاينة الشاشات والغلاف ↓
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Intro -->
+  <section class="max-w-7xl mx-auto px-6 pt-10 pb-6 text-center">
+    <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 mb-3">
+      🎓 ثلاث هويات احترافية متكاملة (فيكتور SVG أصلي عالي الدقة)
+    </span>
+    <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
+      اختر الهوية الأنسب لمشروع تخرجك
+    </h2>
+    <p class="max-w-3xl mx-auto text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed">
+      تم بناء كل شعار بدقة ليعكس رؤية تقنية وأكاديمية متوازنة تجمع بين قوة النظام البرمجي 
+      (<span class="font-bold text-indigo-600 dark:text-indigo-400">Laravel 12 &amp; Flutter</span>) 
+      ومعمارية العمل دون اتصال والذكاء الاصطناعي (<span class="font-bold text-emerald-600 dark:text-emerald-400">Offline-First &amp; Local AI</span>).
+    </p>
+  </section>
+
+  <!-- Logos Grid -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <!-- ==================== CONCEPT 1 ==================== -->
+      <div class="glass-card rounded-3xl p-6 flex flex-col justify-between shadow-xl hover:shadow-2xl transition duration-300 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-400"></div>
+
+        <div>
+          <!-- Badge -->
+          <div class="flex items-center justify-between mb-4 mt-1">
+            <span class="text-xs font-extrabold uppercase px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+              المفهوم الأول • Modern Synergy
+            </span>
+            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">عصري ورشيق</span>
+          </div>
+
+          <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-2">التآزر التقني والرشاقة</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+            يدمج حرفي T و M بسهم نمو تصاعدي وحلقة تسريع مركزية (Hub)، مصمم لفرق التطوير الرشيقة وإدارة المهام.
+          </p>
+
+          <!-- Logo Display Frame -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center min-h-[160px] shadow-inner mb-4">
+            <img id="c1-img" src="images/logos/concept1-synergy-light.svg" alt="Concept 1 Synergy" class="w-full max-h-24 object-contain transition-all">
+          </div>
+
+          <!-- Icon Preview -->
+          <div class="flex items-center gap-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 mb-6">
+            <img id="c1-icon" src="images/logos/concept1-synergy-icon.svg" alt="Concept 1 Icon" class="w-14 h-14 rounded-2xl shadow-md">
+            <div>
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-200">أيقونة التطبيق المصغرة</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">App Icon &amp; Favicon (128x128)</p>
+            </div>
+          </div>
+
+          <!-- Color Tokens -->
+          <div class="mb-6">
+            <p class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">الألوان الأساسية:</p>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#4F46E5] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#4F46E5</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#06B6D4] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#06B6D4</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#10B981] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#10B981</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Actions -->
+        <div class="space-y-2 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <a href="images/logos/concept1-synergy-light.svg" download class="block w-full text-center py-2.5 px-4 rounded-xl text-xs font-extrabold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition">
+            تحميل الشعار (Light SVG)
+          </a>
+          <a href="images/logos/concept1-synergy-dark.svg" download class="block w-full text-center py-2 px-4 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition">
+            تحميل الشعار (Dark SVG)
+          </a>
+        </div>
+      </div>
+
+
+      <!-- ==================== CONCEPT 2 ==================== -->
+      <div class="glass-card rounded-3xl p-6 flex flex-col justify-between shadow-xl hover:shadow-2xl transition duration-300 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-600"></div>
+
+        <div>
+          <!-- Badge -->
+          <div class="flex items-center justify-between mb-4 mt-1">
+            <span class="text-xs font-extrabold uppercase px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+              المفهوم الثاني • Pulse &amp; Local AI
+            </span>
+            <span class="text-xs font-bold text-purple-600 dark:text-purple-400">تقني وهندسي</span>
+          </div>
+
+          <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-2">النواة الذكية والتتبع</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+            مكعب هندسي ثلاثي الأبعاد مع نبض رقمي يبرز معمارية العمل دون اتصال والذكاء الاصطناعي المحلي (Ollama).
+          </p>
+
+          <!-- Logo Display Frame -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center min-h-[160px] shadow-inner mb-4">
+            <img id="c2-img" src="images/logos/concept2-pulse-light.svg" alt="Concept 2 Pulse" class="w-full max-h-24 object-contain transition-all">
+          </div>
+
+          <!-- Icon Preview -->
+          <div class="flex items-center gap-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 mb-6">
+            <img id="c2-icon" src="images/logos/concept2-pulse-icon.svg" alt="Concept 2 Icon" class="w-14 h-14 rounded-2xl shadow-md">
+            <div>
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-200">أيقونة النظام المصغرة</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">App Icon &amp; Favicon (128x128)</p>
+            </div>
+          </div>
+
+          <!-- Color Tokens -->
+          <div class="mb-6">
+            <p class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">الألوان الأساسية:</p>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#10B981] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#10B981</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#8B5CF6] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#8B5CF6</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#0F172A] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#0F172A</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Actions -->
+        <div class="space-y-2 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <a href="images/logos/concept2-pulse-light.svg" download class="block w-full text-center py-2.5 px-4 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+            تحميل الشعار (Light SVG)
+          </a>
+          <a href="images/logos/concept2-pulse-dark.svg" download class="block w-full text-center py-2 px-4 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition">
+            تحميل الشعار (Dark SVG)
+          </a>
+        </div>
+      </div>
+
+
+      <!-- ==================== CONCEPT 3 ==================== -->
+      <div class="glass-card rounded-3xl p-6 flex flex-col justify-between shadow-xl hover:shadow-2xl transition duration-300 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-amber-500 via-yellow-400 to-blue-800"></div>
+
+        <div>
+          <!-- Badge -->
+          <div class="flex items-center justify-between mb-4 mt-1">
+            <span class="text-xs font-extrabold uppercase px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+              المفهوم الثالث • Academic Shield
+            </span>
+            <span class="text-xs font-bold text-amber-600 dark:text-amber-400">أكاديمي ورصين</span>
+          </div>
+
+          <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-2">الدرع الأكاديمي والريادي</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+            درع مؤسسي يضم كتاب المعرفة وأوراق التميز وسهم الانطلاق، مثالي للغلاف الأكاديمي ولجنة المناقشة.
+          </p>
+
+          <!-- Logo Display Frame -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center min-h-[160px] shadow-inner mb-4">
+            <img id="c3-img" src="images/logos/concept3-shield-light.svg" alt="Concept 3 Shield" class="w-full max-h-24 object-contain transition-all">
+          </div>
+
+          <!-- Icon Preview -->
+          <div class="flex items-center gap-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 mb-6">
+            <img id="c3-icon" src="images/logos/concept3-shield-icon.svg" alt="Concept 3 Icon" class="w-14 h-14 rounded-2xl shadow-md">
+            <div>
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-200">أيقونة الدرع المصغرة</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">App Icon &amp; Favicon (128x128)</p>
+            </div>
+          </div>
+
+          <!-- Color Tokens -->
+          <div class="mb-6">
+            <p class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">الألوان الأساسية:</p>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#1E3A8A] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#1E3A8A</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#D97706] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#D97706</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                <span class="w-3.5 h-3.5 rounded-full bg-[#F59E0B] inline-block shadow"></span>
+                <span class="font-mono text-[11px]">#F59E0B</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Actions -->
+        <div class="space-y-2 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <a href="images/logos/concept3-shield-light.svg" download class="block w-full text-center py-2.5 px-4 rounded-xl text-xs font-extrabold bg-amber-600 hover:bg-amber-700 text-white shadow-sm transition">
+            تحميل الشعار (Light SVG)
+          </a>
+          <a href="images/logos/concept3-shield-dark.svg" download class="block w-full text-center py-2 px-4 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition">
+            تحميل الشعار (Dark SVG)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== REALISTIC MOCKUPS SECTION ==================== -->
+  <section id="mockup-section" class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-200 dark:border-slate-800">
+    <div class="text-center mb-10">
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 mb-2">
+        📸 صور رندر وموك آب واقعية عالية الدقة (Photorealistic 8K Renders)
+      </span>
+      <h3 class="text-3xl font-black text-slate-900 dark:text-white mt-1">
+        المعاينة الحية للشعارات في بيئات العمل الحقيقية
+      </h3>
+    </div>
+
+    <!-- 3 Photorealistic Renders Gallery -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <!-- Mockup 1 -->
+      <div class="glass-card rounded-3xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 group hover:shadow-2xl transition">
+        <div class="relative overflow-hidden aspect-[4/3] bg-slate-100 dark:bg-slate-900">
+          <img src="images/logos/mockup-concept1-laptop.jpg" alt="Concept 1 Mockup" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-5">
+            <div>
+              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-indigo-500 text-white">المفهوم الأول</span>
+              <p class="text-sm font-bold text-white mt-1">على شاشة لابتوب داخل مقر الشركة الناشئة</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="text-xs text-slate-500 dark:text-slate-400">يعكس رشاقة النظام وسهولة استخدام واجهة لوحة تحكم لارافيل الحديثة.</p>
+        </div>
+      </div>
+
+      <!-- Mockup 2 -->
+      <div class="glass-card rounded-3xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 group hover:shadow-2xl transition">
+        <div class="relative overflow-hidden aspect-[4/3] bg-slate-100 dark:bg-slate-900">
+          <img src="images/logos/mockup-concept2-ai-tablet.jpg" alt="Concept 2 Mockup" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-5">
+            <div>
+              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-emerald-500 text-white">المفهوم الثاني</span>
+              <p class="text-sm font-bold text-white mt-1">على شاشة لوحية ذكية في معمل الذكاء الاصطناعي</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="text-xs text-slate-500 dark:text-slate-400">يبرز تقنيات الذكاء الاصطناعي المحلي (Local AI) ونظام العمل دون اتصال.</p>
+        </div>
+      </div>
+
+      <!-- Mockup 3 -->
+      <div class="glass-card rounded-3xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 group hover:shadow-2xl transition">
+        <div class="relative overflow-hidden aspect-[4/3] bg-slate-100 dark:bg-slate-900">
+          <img src="images/logos/mockup-concept3-thesis-book.jpg" alt="Concept 3 Mockup" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-5">
+            <div>
+              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500 text-white">المفهوم الثالث</span>
+              <p class="text-sm font-bold text-white mt-1">مطرز بالذهب على غلاف كتاب التخرج الجلدي</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4">
+          <p class="text-xs text-slate-500 dark:text-slate-400">يمنح أطروحة مشروع التخرج هيبة ورصانة أكاديمية رسمية أمام لجنة المناقشة.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Web Dashboard Mockup -->
+    <div class="mb-12">
+      <h4 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+        <span>💻</span> 1. معاينة الشعار في شريط لوحة التحكم (Laravel 12 Dashboard Header)
+      </h4>
+      <div class="mockup-laptop rounded-2xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl">
+        <!-- Mockup Topbar -->
+        <div class="bg-slate-100 dark:bg-slate-800 px-4 py-3 flex items-center justify-between border-b border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-green-400 inline-block"></span>
+            <span class="text-xs font-mono text-slate-500 mr-4">pmts-dashboard.local:8000</span>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-bold">
+            اختر الشعار للمعروض:
+            <select onchange="updateMockupLogo(this.value)" class="bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg px-2 py-1 text-xs">
+              <option value="1">المفهوم 1: TEAM Synergy</option>
+              <option value="2">المفهوم 2: PMTS Pulse AI</option>
+              <option value="3">المفهوم 3: Academic Shield</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dashboard Inner View -->
+        <div class="p-6 bg-slate-50 dark:bg-slate-950 flex flex-col gap-6">
+          <!-- Real Nav inside Dashboard -->
+          <div class="glass-card rounded-2xl p-4 flex items-center justify-between shadow-sm">
+            <div class="h-10 flex items-center">
+              <img id="nav-mockup-logo" src="images/logos/concept1-synergy-light.svg" class="h-9 object-contain" alt="Nav Logo">
+            </div>
+            <div class="flex items-center gap-4 text-xs font-bold text-slate-600 dark:text-slate-300">
+              <span class="text-indigo-600 dark:text-indigo-400">لوحة التحكم</span>
+              <span>المشاريع</span>
+              <span>الفرق والمهام</span>
+              <span>سجل التدقيق</span>
+              <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">A</div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <p class="text-xs text-slate-500 font-bold">المشاريع النشطة</p>
+              <p class="text-2xl font-black text-indigo-600 mt-1">12 مشروع</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <p class="text-xs text-slate-500 font-bold">حالة المزامنة دون اتصال</p>
+              <p class="text-2xl font-black text-emerald-600 mt-1">متزامن بالكامل (100%)</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <p class="text-xs text-slate-500 font-bold">محرك الذكاء الاصطناعي</p>
+              <p class="text-2xl font-black text-purple-600 mt-1">Ollama Local AI (Ready)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Academic Book Cover Mockup -->
+    <div>
+      <h4 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+        <span>📖</span> 2. معاينة الشعار على غلاف كتاب مشروع التخرج الأكاديمي (جامعة الرازي)
+      </h4>
+      <div class="max-w-2xl mx-auto rounded-3xl p-8 bg-white dark:bg-slate-900 border-4 border-slate-200 dark:border-slate-700 shadow-2xl relative text-center">
+        <!-- University Header -->
+        <p class="text-xs font-bold text-slate-500 dark:text-slate-400">الجمهورية اليمنية • وزارة التعليم العالي والبحث العلمي</p>
+        <p class="text-sm font-black text-slate-800 dark:text-slate-200 mt-0.5">جامعة الرازي • كلية العلوم الإدارية والإنسانية</p>
+        <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400">قسم نظم المعلومات الإدارية (MIS)</p>
+
+        <div class="my-8 py-6 border-y-2 border-slate-100 dark:border-slate-800 flex justify-center">
+          <img id="book-mockup-logo" src="images/logos/concept3-shield-light.svg" class="h-20 object-contain" alt="Book Logo">
+        </div>
+
+        <h5 class="text-xl font-black text-slate-900 dark:text-white">منصة ومسرعة المشاريع والفرق التقنية والريادية المتكاملة</h5>
+        <p class="text-xs font-mono text-slate-500 mt-1 font-bold">Project Management and Tracking System (PMTS / TEAM Hub)</p>
+
+        <div class="mt-8 pt-4 flex justify-between text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 font-bold">
+          <span>إشراف: د. خالد المسوري</span>
+          <span>العام الجامعي: 2026 / 2027م</span>
+          <span>إعداد: فريق مشروع التخرج</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-16 py-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400">
+    <p>تم إعداد وتطوير كافة الشعارات بصيغ فيكتور نقية لضمان أعلى جودة طباعة وعرض رقمي.</p>
+    <p class="mt-1">مسار الشعارات في المشروع: <code class="font-mono bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded">TEAM Project/public/images/logos/</code></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    let isDark = false;
+    let selectedMockup = "1";
+
+    function toggleDarkMode() {
+      isDark = !isDark;
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('modeIcon').textContent = '☀️';
+        document.getElementById('modeText').textContent = 'الوضع النهاري';
+        
+        // Update images to dark variants
+        document.getElementById('c1-img').src = 'images/logos/concept1-synergy-dark.svg';
+        document.getElementById('c2-img').src = 'images/logos/concept2-pulse-dark.svg';
+        document.getElementById('c3-img').src = 'images/logos/concept3-shield-dark.svg';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('modeIcon').textContent = '🌙';
+        document.getElementById('modeText').textContent = 'الوضع الليلي';
+        
+        // Update images to light variants
+        document.getElementById('c1-img').src = 'images/logos/concept1-synergy-light.svg';
+        document.getElementById('c2-img').src = 'images/logos/concept2-pulse-light.svg';
+        document.getElementById('c3-img').src = 'images/logos/concept3-shield-light.svg';
+      }
+      updateMockupLogo(selectedMockup);
+    }
+
+    function updateMockupLogo(val) {
+      selectedMockup = val;
+      const suffix = isDark ? '-dark.svg' : '-light.svg';
+      let logoSrc = '';
+      if (val === '1') logoSrc = 'images/logos/concept1-synergy' + suffix;
+      else if (val === '2') logoSrc = 'images/logos/concept2-pulse' + suffix;
+      else if (val === '3') logoSrc = 'images/logos/concept3-shield' + suffix;
+
+      document.getElementById('nav-mockup-logo').src = logoSrc;
+      document.getElementById('book-mockup-logo').src = (val === '3') ? ('images/logos/concept3-shield' + suffix) : logoSrc;
+    }
+  </script>
+</body>
+</html>
+
